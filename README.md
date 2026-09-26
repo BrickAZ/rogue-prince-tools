@@ -1,75 +1,96 @@
 # BrickZhou · Rogue Prince Tools
 
-《波斯王子：Rogue》社区工具集。作者：**BrickZhou/青春啊砖在he边看月亮**。
+《The Rogue Prince of Persia》的两个社区工具：**CheatMenu 游戏内菜单**与**美术资源导出 / 离线图片库**。
 
-[Bilibili](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou) · [English](README.en.md)
+作者：**BrickZhou/青春啊砖在he边看月亮**
 
-本项目包含 **两个工具**。美术资源导出程序与查看入口属于同一个工具；BepInEx 是第三方前置。
+[English](README.en.md) · [B站](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
 
-| 项目 | 版本 | 用途 | 需要 BepInEx |
-|---|---|---|---|
-| CheatMenu | 0.1.8 | F9 游戏内调试菜单，中英文切换，角色、资源、物品、徽章栏位与风神之息操作 | 是 |
-| 美术资源工具 | 1.1.1 | 独立 EXE 导出图片，CMD 打开离线图片库，支持中英切换、分类、搜索和分页 | 否 |
-| BepInEx（第三方前置） | 6.0.0-be.788+5b766a3 / IL2CPP x64 | 加载 CheatMenu | — |
+> **Windows x64 · 当前为预发布 v1.0.0-rc.1。** 使用 CheatMenu 前请备份存档。新菜单署名/链接区域、原生玩法操作及另一台电脑的首次安装仍待实机复核。[验证范围](docs/VALIDATION.md)
 
-## 下载与安装
+## 选择下载
 
-在 [Releases](https://github.com/BrickAZ/rogue-prince-tools/releases) 下载需要的包。
+| 我想做什么 | 下载成品包 | 下一步 |
+|---|---|---|
+| 第一次使用 CheatMenu | [CheatMenu 0.1.8][cheat] + [BepInEx 下载助手][loader] | [完整安装指南](docs/INSTALL.md#cheatmenu) |
+| 已有兼容前置，更新 CheatMenu | [CheatMenu 0.1.8][cheat] | [更新与停用](docs/INSTALL.md#update) |
+| 只导出或浏览美术图片 | [美术资源工具 1.1.1][art] | [美术工具安装](docs/INSTALL.md#art-tool) |
 
-### CheatMenu
+**美术工具不需要 BepInEx 或额外安装 Python。** 导出 EXE 与查看 CMD 是同一个工具的两个入口。BepInEx 由第三方团队开发，只供 CheatMenu 加载使用。
 
-1. 关闭游戏，通过 Steam → 管理 → 浏览本地文件，找到含 `The Rogue Prince of Persia.exe` 的游戏根目录。
-2. 按 [前置说明](prerequisites/README.md) 获取固定版本 BepInEx，将**压缩包里面的内容**解压到游戏根目录。首次启动游戏等待初始化，进入主菜单后退出。
-3. 将 `02-CheatMenu-0.1.8.zip` **里面的内容**解压到同一游戏根目录。
-4. 启动游戏并进入存档，按 **F9** 开关菜单。进入 **设置/setting → 语言/language** 切换中英文。
-5. 署名与 B 站、YouTube 主页按钮位于设置页底部；只有主动点击时才打开系统浏览器。
+[全部发布文件与更新说明][release] · [SHA-256 校验文件][checksums] · [常见问题](docs/FAQ.md)
 
-DLL 的最终位置应为 `BepInEx/plugins/RoguePrince.CheatMenu/RoguePrince.CheatMenu.dll`。
-游戏运行时不要替换 DLL。已有其他版本加载器时，先核对兼容性。
+普通玩家下载上表的成品包即可。GitHub 的 **Code → Download ZIP** 和发布页的 **Source code** 是供开发者使用的源码包。
 
-安装 ZIP 不会自动备份存档。使用前在游戏关闭时备份 `userdata/saves`。
-永久资源与部分进度修改可能随游戏保存；禁用插件不会撤销已保存的变化。
-插件在指定永久操作前备份已落盘存档到 `BepInEx/CheatMenuBackups`。
-停用：关闭游戏，将插件 DLL 改为 `.dll.disabled`；恢复时改回 `.dll`。
+## 两个工具能做什么
 
-### 美术资源工具
+### CheatMenu · F9 打开
 
-将 `03-ArtTool-1.1.1.zip` 解压到游戏根目录，双击 `一键导出美术资源.exe`。
-完成后自动打开 `ArtExports/index.html`；以后运行 `打开美术资源库.cmd` 即可查看已有结果。
-两个入口放在同一个游戏根目录。导出 EXE 已包含 Python、图片解析依赖和页面模板，玩家不需要安装 Python、Codex 或开发环境。
+- 角色：生命、能量相关调整，无敌与无限能量开关，徽章栏位调整。
+- 资源：区分增加与设为操作；永久资源和徽章栏位操作带有存档备份机制。
+- 物品：浏览、搜索物品，在角色附近生成；原版等级为 **1–5**，更高等级效果未保证，0 级不可用。
+- 风神之息：触发一次或持续保持。
+- 设置：中英文切换、快捷键、界面缩放与位置，以及作者主页链接。
 
-图片类型包括 Sprite、Texture2D、Texture2DArray；不导出模型、骨架动画、声音或完整 Unity 工程。
-源资源只读，导出前后校验哈希。浮点纹理同时保存原始数据与 8 位 PNG 预览。
-命令行与构建说明见 [art-tool/README.md](art-tool/README.md)。
+这些是当前菜单提供的功能入口；各原生操作的实机验证状态见下方兼容表。自动备份只覆盖指定操作前的磁盘存档，不能代替使用前的完整备份。
 
-## 兼容性与验证范围
+### 美术资源工具 · 导出后离线查看
 
-开发基准：Windows x64 / Steam Build `24299434` / 游戏 `v1.1.0` / Unity `6000.0.64f1`。
-其他平台或游戏版本尚未确认。离线测试、构建及单文件导出验收见 [验证记录](docs/VALIDATION.md)。
-本次署名与链接更新未完成游戏内实机验证，首个公开包以预发布形式提供。
+- 双击 EXE 导出图片，完成后在浏览器中打开图片库。
+- 按内容分类、名称搜索、资源类型和来源包筛选，支持分页与中英文切换。
+- 点击缩略图打开原尺寸 PNG；查看入口可重复打开已有结果。
+- 支持 Sprite、Texture2D、Texture2DArray 图片；不导出声音、模型、骨架动画或完整 Unity 工程。
 
-## 从源码构建
+![美术资源库中文界面：分类、搜索与图片预览](docs/images/art-library.zh-CN.png)
 
-CheatMenu：安装 .NET SDK 8.0.422（或兼容的 8.0 补丁版本），准备已完成 BepInEx 首次初始化的自有游戏安装：
+*真实界面示例：Art Tool 1.1.1 导出的单个资源包，共 6 张图片；这不是完整游戏资源数量。截图中的游戏美术归原权利人所有。*
 
-```powershell
-.\cheatmenu\build.ps1 -GameDirectory 'D:\你的游戏目录' -Dotnet 'dotnet'
-```
+## 快速开始
 
-纯逻辑测试可单独运行，不依赖游戏：
+**CheatMenu**
 
-```powershell
-dotnet run --project .\cheatmenu\tests\RoguePrince.CheatMenu.Tests -c Release
-```
+1. 关闭游戏，在 Steam 的“管理 → 浏览本地文件”中找到游戏目录；先备份其中的 `userdata/saves`。
+2. 按[前置安装说明](prerequisites/README.md)运行下载助手，再解压它下载的 **BepInEx 原始安装包**。启动游戏完成首次初始化，进入主菜单后退出。
+3. 将 CheatMenu ZIP 内的 `BepInEx` 文件夹合并到游戏目录。进入存档后按 **F9**；在 **设置/setting → 语言/language** 切换语言。
 
-美术工具：使用 Python 3.12 x64 安装 `art-tool/requirements-lock.txt`，再运行 `art-tool/build.ps1`；完整命令见子目录 README。
-源码仓库不包含游戏程序集、游戏资源、存档或个人测试日志。
+[目录示意、安装成功标志、更新与停用](docs/INSTALL.md#cheatmenu) · [F9 没反应](docs/FAQ.md#f9)
 
-## 授权
+**美术资源工具**
 
-自有代码采用 **GPL-3.0-only**，版权署名为 **BrickZhou/青春啊砖在he边看月亮**。
-允许收费；再分发须遵守 GPLv3 的对应源码、声明保留等要求。详见 [LICENSE](LICENSE) 与 [COPYRIGHT.md](COPYRIGHT.md)。
-CheatMenu 对调用本游戏及随游戏提供的 Unity 运行库增加了 [有限链接许可](cheatmenu/GAME-LINKING-EXCEPTION.txt)；这不免除 CheatMenu 自身及其修改版本的 GPL 源码义务，也不授予分发游戏的权利。
+1. 将美术工具 ZIP 的内容解压到游戏目录，与游戏 EXE 同级。
+2. 双击 `一键导出美术资源.exe`；结果保存至 `ArtExports`，完成后自动打开图片库。
+3. 以后双击 `打开美术资源库.cmd` 查看已有结果，无需重新导出。
 
-BepInEx 及其他依赖继续遵守各自许可证，详见 [第三方声明](THIRD-PARTY-NOTICES.md)。
-本工具的 GPL 许可不覆盖导出的游戏美术资源。项目与 Ubisoft、Evil Empire 无隶属或官方背书关系。
+[详细安装与使用](docs/INSTALL.md#art-tool) · [命令行选项](art-tool/README.md)
+
+## 版本与兼容性
+
+工具集版本是一次发布的标签，各组件保留各自的版本号。
+
+| 项目 | 当前版本 / 环境 | 验证状态 |
+|---|---|---|
+| 工具集发布 | v1.0.0-rc.1 | 预发布 |
+| CheatMenu | 0.1.8 | 构建和离线逻辑测试通过；本次未启动游戏复核 |
+| 美术资源工具 | 1.1.1 | 便携导出和样例图片库浏览器检查通过 |
+| BepInEx 前置 | 6.0.0-be.788+5b766a3，Unity.IL2CPP-win-x64 | 固定官方包的下载与校验通过 |
+| 参考游戏环境 | Windows x64，游戏 v1.1.0，Steam Build 24299434 | 其他平台和游戏版本未确认 |
+
+首次前置初始化可能联网下载依赖。另一台玩家电脑的全新安装，以及图片库在所有浏览器下直接以 `file://` 打开的行为尚未全面验证。[完整验证记录](docs/VALIDATION.md)
+
+## 帮助与开发
+
+[常见问题与反馈](docs/FAQ.md) · [提交问题](https://github.com/BrickAZ/rogue-prince-tools/issues/new?template=bug_report.md) · [源码构建](docs/BUILD.md) · [更新记录](CHANGELOG.md)
+
+## 作者与许可
+
+**BrickZhou/青春啊砖在he边看月亮** · [B站](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
+
+自有代码采用 **GPL-3.0-only**。允许收费；再分发须遵守对应源码、声明保留等要求。[LICENSE](LICENSE) · [版权说明](COPYRIGHT.md)
+
+CheatMenu 附有[有限游戏链接许可](cheatmenu/GAME-LINKING-EXCEPTION.txt)。BepInEx 及其他依赖保留原作者与各自许可证，见[第三方声明](THIRD-PARTY-NOTICES.md)。工具许可不覆盖游戏及导出的美术资源。本项目与 Ubisoft、Evil Empire 无隶属或官方背书关系。
+
+[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/02-CheatMenu-0.1.8.zip
+[loader]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/01-BepInEx-Download-788.zip
+[art]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/03-ArtTool-1.1.1.zip
+[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/v1.0.0-rc.1
+[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/SHA256SUMS.txt

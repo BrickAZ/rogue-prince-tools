@@ -1,36 +1,96 @@
 # BrickZhou · Rogue Prince Tools
 
-Community tools for **The Rogue Prince of Persia**, by **BrickZhou/青春啊砖在he边看月亮**.
+Two community tools for **The Rogue Prince of Persia**: the **CheatMenu in-game menu** and an **art exporter / offline image library**.
 
-[Bilibili](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou) · [简体中文](README.md)
+By **BrickZhou/青春啊砖在he边看月亮**
 
-This repository contains **two tools**: CheatMenu **0.1.8**, and the art exporter/offline library **1.1.1**. The export EXE and library launcher are two entry points for the same art tool. BepInEx is a separate third-party prerequisite.
+[简体中文](README.md) · [Bilibili](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
 
-## Install
+> **Windows x64 · Current prerelease: v1.0.0-rc.1.** Back up saves before using CheatMenu. Its new attribution/link area, native gameplay actions and a fresh installation on another PC still need in-game / user-machine verification. [Validation scope](docs/VALIDATION.md)
 
-Download packages from [Releases](https://github.com/BrickAZ/rogue-prince-tools/releases).
+## Choose your download
 
-**CheatMenu:** Close the game. Obtain BepInEx **6.0.0-be.788+5b766a3, Unity.IL2CPP-win-x64** using [these instructions](prerequisites/README.md). Extract the archive contents next to the game EXE. Start the game once to initialize the loader, then exit. Extract `02-CheatMenu-0.1.8.zip` to the same directory. The plugin belongs at `BepInEx/plugins/RoguePrince.CheatMenu/RoguePrince.CheatMenu.dll`.
+| What do you need? | Ready-to-use packages | Next step |
+|---|---|---|
+| First CheatMenu installation | [CheatMenu 0.1.8][cheat] + [BepInEx download helper][loader] | [Installation guide](docs/INSTALL.en.md#cheatmenu) |
+| Update CheatMenu with a compatible loader already installed | [CheatMenu 0.1.8][cheat] | [Update or disable](docs/INSTALL.en.md#update) |
+| Only export or browse artwork | [Art Tool 1.1.1][art] | [Art tool setup](docs/INSTALL.en.md#art-tool) |
 
-Enter a save and press **F9**. Choose **设置/setting → 语言/language → English**. Settings includes the author's name and links to Bilibili and YouTube; external pages open only when clicked. The menu supports player adjustments, resources, item spawning, medallion slots and Wind of the Gods. Original item levels are 1–5; higher levels are not guaranteed to work; level 0 is rejected.
+**The art tool needs neither BepInEx nor a separate Python installation.** Its export EXE and gallery CMD are two entry points for one tool. BepInEx is developed by a third-party team and loads CheatMenu.
 
-Back up `userdata/saves` with the game closed. Extracting the ZIP does not create a backup. Persistent changes may be saved by the game and are not undone by disabling the plugin. Selected permanent actions create a backup of disk saves in `BepInEx/CheatMenuBackups`. To disable, close the game and rename the plugin DLL to `.dll.disabled`.
+[All release files and notes][release] · [SHA-256 checksums][checksums] · [FAQ](docs/FAQ.en.md)
 
-**Art tool:** Extract `03-ArtTool-1.1.1.zip` into the game root. Run `一键导出美术资源.exe` to export images. It includes its Python runtime and dependencies. No Python, Codex, BepInEx or development environment is required by players. Results are written to `ArtExports`; the gallery opens automatically. Later, use `打开美术资源库.cmd` to reopen it. The gallery supports Chinese/English, categories, search and pagination.
+Players should use the packages above. GitHub's **Code → Download ZIP** and the release's **Source code** archives contain developer source files.
 
-The tool exports Sprite, Texture2D and Texture2DArray images. It does not export audio, 3D models, skeletal animations or a complete Unity project. Game resources are read-only; hashes are checked before and after export. Exported artwork retains its original ownership.
+## What the tools do
 
-## Build and verification
+### CheatMenu · Open with F9
 
-Reference environment: Windows x64, Steam Build 24299434, game v1.1.0, Unity 6000.0.64f1. Other versions/platforms are unverified.
+- Player: health and energy adjustments, god mode, infinite energy and medallion slot adjustments.
+- Resources: separate Add and Set actions; persistent resource and medallion slot actions include save-backup handling.
+- Items: browse, search and spawn items near the player. Original levels are **1–5**; higher levels are not guaranteed to work, and level 0 is rejected.
+- Vayu's Breath: activate once or keep active.
+- Settings: Chinese/English, hotkey, interface scale and position, and author links.
 
-Use .NET SDK 8.0.422 and run `cheatmenu/build.ps1 -GameDirectory 'D:\YourGame'` after BepInEx has generated the game's interop assemblies. Game binaries are not included. Pure logic tests can run separately with `dotnet run --project cheatmenu/tests/RoguePrince.CheatMenu.Tests -c Release`.
+These are the current menu's feature entries; see the compatibility table for native-action verification status. Automatic backups only cover disk saves before selected actions and do not replace a full backup before use.
 
-Art tool builds use Python 3.12 x64; see [art-tool/README.md](art-tool/README.md).
-Read [validation details](docs/VALIDATION.md). The new menu attribution and link buttons have not been verified inside the game; the initial public release is marked as a prerelease.
+### Art tool · Export once, browse offline
 
-## License
+- Run the EXE to export images and open the gallery in a browser.
+- Browse content categories, search names, filter by asset type or source bundle, and switch between Chinese and English.
+- Open full-resolution PNGs from thumbnails; reopen existing results with the gallery launcher.
+- Supports Sprite, Texture2D and Texture2DArray images. It does not export audio, models, skeletal animations or a complete Unity project.
 
-Original code: **GPL-3.0-only**, copyright (C) 2026 **BrickZhou/青春啊砖在he边看月亮**. Commercial redistribution is permitted under GPLv3. Preserve applicable notices and supply corresponding source as required. See [LICENSE](LICENSE) and [COPYRIGHT.md](COPYRIGHT.md).
+![English art library showing categories, search and image previews](docs/images/art-library.en.png)
 
-CheatMenu includes a [narrow game linking permission](cheatmenu/GAME-LINKING-EXCEPTION.txt). It does not waive GPL obligations for CheatMenu modifications or grant rights to distribute game binaries/assets. Third-party dependencies retain their own licenses. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). This project is not affiliated with or endorsed by Ubisoft or Evil Empire.
+*Actual Art Tool 1.1.1 interface with 6 images from one sample resource bundle; this is not the full game's image count. Game artwork in the screenshot belongs to its respective rights holders.*
+
+## Quick start
+
+**CheatMenu**
+
+1. Close the game. In Steam, use **Manage → Browse local files** to find its directory. Back up `userdata/saves` inside it.
+2. Follow the [prerequisite guide](prerequisites/README.en.md): run the helper, then extract the **original BepInEx archive it downloads**. Start the game, allow initialization to finish, reach the main menu, then exit.
+3. Merge the CheatMenu ZIP's `BepInEx` folder into the game directory. Enter a save and press **F9**. Select **设置/setting → 语言/language → English** to switch languages.
+
+[Folder layout, success checks, updates and disabling](docs/INSTALL.en.md#cheatmenu) · [F9 does nothing](docs/FAQ.en.md#f9)
+
+**Art tool**
+
+1. Extract the art package contents beside the game EXE.
+2. Run `一键导出美术资源.exe` (export images). Results go to `ArtExports` and the gallery opens when finished.
+3. Later, run `打开美术资源库.cmd` (open the library) to view existing results without exporting again.
+
+[Detailed setup and usage](docs/INSTALL.en.md#art-tool) · [Command-line options](art-tool/README.en.md)
+
+## Versions and compatibility
+
+The suite version labels a release; each component keeps its own version number.
+
+| Component | Current version / environment | Verification status |
+|---|---|---|
+| Suite release | v1.0.0-rc.1 | Prerelease |
+| CheatMenu | 0.1.8 | Build and offline logic checks passed; the game was not launched for this release |
+| Art tool | 1.1.1 | Portable export and sample-gallery browser checks passed |
+| BepInEx | 6.0.0-be.788+5b766a3, Unity.IL2CPP-win-x64 | Pinned official download and checksum verified |
+| Reference game environment | Windows x64, game v1.1.0, Steam Build 24299434 | Other platforms and game versions unverified |
+
+First loader initialization may download dependencies. Fresh installation on another player's PC and direct `file://` gallery use across browsers have not been fully verified. [Full validation record](docs/VALIDATION.md)
+
+## Help and development
+
+[FAQ and reporting](docs/FAQ.en.md) · [Report an issue](https://github.com/BrickAZ/rogue-prince-tools/issues/new?template=bug_report.md) · [Build from source](docs/BUILD.en.md) · [Changelog](CHANGELOG.md)
+
+## Author and license
+
+**BrickZhou/青春啊砖在he边看月亮** · [Bilibili](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
+
+Original code uses **GPL-3.0-only**. Commercial redistribution is allowed; comply with corresponding-source and notice requirements. [LICENSE](LICENSE) · [Copyright](COPYRIGHT.md)
+
+CheatMenu includes a [limited game linking permission](cheatmenu/GAME-LINKING-EXCEPTION.txt). BepInEx and other dependencies retain their authors and licenses; see [third-party notices](THIRD-PARTY-NOTICES.md). The tool license does not cover the game or exported artwork. This project is not affiliated with or endorsed by Ubisoft or Evil Empire.
+
+[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/02-CheatMenu-0.1.8.zip
+[loader]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/01-BepInEx-Download-788.zip
+[art]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/03-ArtTool-1.1.1.zip
+[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/v1.0.0-rc.1
+[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/SHA256SUMS.txt

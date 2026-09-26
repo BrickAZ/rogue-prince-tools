@@ -1,10 +1,14 @@
-# 美术资源工具 / Art Tool 1.1.1
+# 美术资源工具 1.1.1
 
-作者 / Author: **BrickZhou/青春啊砖在he边看月亮** · GPL-3.0-only
+[首页与下载](../README.md#选择下载) · [English](README.en.md) · [安装步骤](../docs/INSTALL.md#art-tool) · [常见问题](../docs/FAQ.md#art)
 
-`一键导出美术资源.exe` 导出，`打开美术资源库.cmd` 打开已有结果；两个入口属于一个工具。
-将两者放在游戏根目录，结果生成到 `ArtExports`。导出后自动打开本地浏览器。
-The EXE exports images and the CMD opens the existing gallery. Put both in the game root.
+作者：**BrickZhou/青春啊砖在he边看月亮** · GPL-3.0-only
+
+`一键导出美术资源.exe` 负责导出，`打开美术资源库.cmd` 负责打开已有结果。玩家使用成品 EXE 无需额外安装 Python 或 BepInEx。
+
+## 命令行用法
+
+在 EXE 所在文件夹打开 PowerShell：
 
 ```powershell
 & '.\一键导出美术资源.exe' --version
@@ -12,29 +16,28 @@ The EXE exports images and the CMD opens the existing gallery. Put both in the g
 & '.\一键导出美术资源.exe' --game 'D:\Game' --output 'D:\Images'
 ```
 
-`--force` 重新导出；`--match TEXT` 筛选资源包（建议使用单独输出目录）；`--interactive` 保留窗口。
-自定义输出须为空或已由本工具创建；游戏目录内部只允许写 `ArtExports`。
-命令行双击自动保留窗口，成功后回车退出。查看入口不会重新导出。
+| 参数 | 用途 |
+|---|---|
+| `--game PATH` | 指定游戏目录 |
+| `--output PATH` | 指定输出目录；默认在游戏目录的 ArtExports |
+| `--no-open` | 导出完成后不自动打开浏览器 |
+| `--force` | 强制重新导出 |
+| `--match TEXT` | 筛选资源包；建议为筛选结果选择单独输出目录 |
+| `--interactive` | 结束后等待按回车键 |
+| `--version` | 显示工具版本与署名 |
 
-## Build
+双击 EXE 会在结束后保留窗口，按回车退出。查看 CMD 不会重新导出，且只打开自身旁的 `ArtExports/index.html`；自定义输出请直接打开该目录中的 HTML。
 
-Python **3.12 x64**, Windows:
+## 输出与范围
 
-```powershell
-cd art-tool
-python -m pip install --target .build-deps -r requirements-lock.txt
-.\build.ps1 -Python python
-$env:PYTHONPATH = "$PWD\.build-deps"
-$env:ROGUE_TEST_GAME = 'D:\YourGame'
-python -m unittest discover -v
-```
+- 自定义输出须为空或已由本工具创建；游戏目录内部仅允许输出到 `ArtExports`。
+- 图片包括 Sprite、Texture2D、Texture2DArray；浮点纹理同时保存原始数据与 8 位 PNG 预览。
+- 源资源只读，导出前后校验哈希；报告在 `report.json`，失败记录在 `errors.json`。
+- 不导出音频、模型、骨架动画或完整 Unity 工程。图片不包含游戏内灯光与材质合成。
+- 游戏美术归原权利人所有，工具 GPL 许可不覆盖游戏资源。
 
-`dist/一键导出美术资源.exe` is self-contained. `build.ps1 -DependencyPath PATH`
-can reuse a matching dependency directory. Build environment: Python 3.12.14.
-Portable tests copy only the EXE and one real bundle into a temporary Unicode
-path, clear Python environment variables and use an unrelated working directory.
+## 开发与许可证
 
-Third-party license texts are bundled and written under `ArtExports/third-party-licenses`.
-The GPL text and tool copyright are exported as `TOOL-LICENSE.txt` and `TOOL-COPYRIGHT.md`.
-FMOD's proprietary native library is excluded: this tool does not export audio.
-Game artwork is not relicensed under the tool's GPL license.
+[构建及测试步骤](../docs/BUILD.md#art-tool) · [验证记录](../docs/VALIDATION.md)
+
+第三方许可随程序提供，导出后位于 `ArtExports/third-party-licenses`；工具许可与署名文件为 `TOOL-LICENSE.txt` 和 `TOOL-COPYRIGHT.md`。发行包排除了未使用的 FMOD 原生音频库。

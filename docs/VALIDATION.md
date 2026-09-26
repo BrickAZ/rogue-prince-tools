@@ -21,17 +21,19 @@ preview is not proof of every browser's behavior under `file://` URLs.
 本次没有启动游戏。**CheatMenu 新署名区域、主页按钮的实机排版/点击、
 所有原生游戏操作，以及在另一台玩家电脑上的首次安装仍未验证。**
 因此首个公开发行标记为 **pre-release**，不声明游戏内完整验收通过。
-未改变 CheatMenu 原有玩法机制；工具构建与测试没有覆盖 D 盘正在测试的安装。
+未改变 CheatMenu 原有玩法机制。验证环境和独立玩家电脑的首次安装是不同范围。
 
 The game was not launched for this release. New CheatMenu attribution/link UI,
 native gameplay actions, and first installation on a different player's PC
 remain unverified. Offline tests do not prove those behaviors. This initial
 public package is a **prerelease**.
 
-## Reproduce
+## Reproduce / 复现
 
-See root README for the CheatMenu build/test commands and `art-tool/README.md`
-for the art build/test commands. The latter integration test needs a legally
-installed game via `ROGUE_TEST_GAME`; no game fixture is distributed.
-Use `python scripts/package.py` after both builds to recreate release archives.
-`release/SHA256SUMS.txt` identifies each generated package.
+See [build and test instructions](BUILD.en.md) / [构建与测试说明](BUILD.md).
+Art integration checks require your own game through `ROGUE_TEST_GAME`; no game fixture is distributed.
+Use `python scripts/package.py` from the repository root after both builds.
+`release/SHA256SUMS.txt` identifies the resulting packages.
+
+This is the verification record for the initial v1.0.0-rc.1 binaries. Later documentation changes do not count as new in-game verification.
+本记录对应首次预发布的程序包；后续网页说明修改不代表新增实机验收。
