@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.1.8</Version>
+    <Authors>BrickZhou/青春啊砖在he边看月亮</Authors>
+    <Copyright>Copyright (C) 2026 BrickZhou/青春啊砖在he边看月亮</Copyright>
+    <Deterministic>true</Deterministic>
+    <GameDir Condition="'$(GameDir)' == ''">$(ROGUE_GAME_DIR)</GameDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(GameDir)\BepInEx\core\BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\core\0Harmony.dll" Private="false" />
+    <Reference Include="$(GameDir)\BepInEx\interop\*.dll" Private="false" />
+  </ItemGroup>
+  <Target Name="CheckGameReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameDir)/BepInEx/interop/Assembly-CSharp.dll')" Text="Set GameDir or ROGUE_GAME_DIR to a game installation initialized with BepInEx IL2CPP. Game assemblies are not distributed with this source." />
+  </Target>
+</Project>

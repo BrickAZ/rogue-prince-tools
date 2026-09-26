@@ -1,0 +1,227 @@
+[
+  {
+    "name": "4-Defense-2-30HP-ItemData",
+    "features": [
+      "EquipUnlockedItemFeature",
+      "SkillTreeItemFeature",
+      "SituationTriggerItemFeature",
+      "TriggerExitFirstRunOnEquipIfRunStarted"
+    ],
+    "expected": "天赋"
+  },
+  {
+    "name": "Awakening-Bleed-ItemData",
+    "features": [
+      "AwakeningItemFeature",
+      "SituationTriggerItemFeature"
+    ],
+    "expected": "觉醒"
+  },
+  {
+    "name": "PrinceSkin-Laleh",
+    "features": [
+      "EquipmentFeature",
+      "SkinItemFeature",
+      "UnmanagedItemFeature",
+      "LootOnDropFeature",
+      "SkipLootOnDropItemFeature"
+    ],
+    "expected": "皮肤"
+  },
+  {
+    "name": "MedallionPack-Special",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "AddListItemsToReadyToUnlockFeature",
+      "UnlockInCraftFeature",
+      "MedallionsPackTagFeature"
+    ],
+    "expected": "扩展包"
+  },
+  {
+    "name": "SkinPack-Awakening-2",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "AddListItemsToReadyToUnlockFeature"
+    ],
+    "expected": "扩展包"
+  },
+  {
+    "name": "SkinPack-Community",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "AddListItemsToReadyToUnlockFeature",
+      "UnlockInCraftFeature"
+    ],
+    "expected": "扩展包"
+  },
+  {
+    "name": "Skin-Blueprint-ItemData",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "LootOnDropFeature",
+      "BlueprintItemFeature"
+    ],
+    "expected": "蓝图"
+  },
+  {
+    "name": "SkillPoint-Awakening-ItemData",
+    "features": [
+      "AdditionalSkillPointFeature",
+      "OnUseEffectFeature",
+      "ConsumableFeature",
+      "UseOnPickupFeature"
+    ],
+    "expected": "资源补给"
+  },
+  {
+    "name": "Container-HealthUp-Big",
+    "features": [
+      "GoldCostFeature",
+      "StatChangeFeature",
+      "HealFeature",
+      "UseOnPickupFeature",
+      "LootOnDropFeature",
+      "OnPickupEffectFeature"
+    ],
+    "expected": "资源补给"
+  },
+  {
+    "name": "Container-Gold-Small",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "GoldHolderItemFeature",
+      "LootOnDropFeature",
+      "ForbidRecycleItemFeature"
+    ],
+    "expected": "资源补给"
+  },
+  {
+    "name": "Container-Shards-Big",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EffectItemFeature",
+      "LootOnDropFeature",
+      "ForbidRecycleItemFeature"
+    ],
+    "expected": "资源补给"
+  },
+  {
+    "name": "Container-CorruptedBlood-Big",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EffectItemFeature",
+      "ForbidRecycleItemFeature"
+    ],
+    "expected": "资源补给"
+  },
+  {
+    "name": "A-IncreaseCriticalChance",
+    "features": [
+      "AddStartContextParamsItemFeature",
+      "AffixItemFeature",
+      "OnPickupEffectFeature",
+      "OnRemoveEffectFeature"
+    ],
+    "expected": "词缀"
+  },
+  {
+    "name": "AddFountain-Baatar",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "OnPickupEffectFeature",
+      "UnlockInCraftFeature"
+    ],
+    "expected": "永久升级"
+  },
+  {
+    "name": "AddRecycle",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "OnPickupEffectFeature",
+      "UnlockInCraftFeature"
+    ],
+    "expected": "永久升级"
+  },
+  {
+    "name": "AddMainWeaponSlotStartLooter1",
+    "features": [
+      "ConsumableFeature",
+      "UseOnPickupFeature",
+      "EquipUnlockedItemFeature",
+      "UnlockInForgeFeature",
+      "OnPickupEffectFeature",
+      "AddItemToReadyToUnlockFeature"
+    ],
+    "expected": "永久升级"
+  },
+  {
+    "name": "Debug-InfiniteEnergy",
+    "features": [
+      "SituationTriggerItemFeature",
+      "StatChangeFeature",
+      "DebugItemFeature"
+    ],
+    "expected": "调试"
+  },
+  {
+    "name": "AddPenaltyFirstRun",
+    "features": [
+      "OnPickupEffectFeature",
+      "OnRemoveEffectFeature"
+    ],
+    "expected": "其他"
+  },
+  {
+    "name": "AzadehLever",
+    "features": [
+      "LootOnDropFeature",
+      "EquipmentFeature",
+      "GoldCostFeature",
+      "UtilityWeaponFeature",
+      "OnPickupEffectFeature",
+      "OnRemoveEffectFeature",
+      "EnergyCostFeature",
+      "ForbidRecycleItemFeature"
+    ],
+    "expected": "工具"
+  },
+  {
+    "name": "BareHands",
+    "features": [
+      "WeaponFeature",
+      "EquipmentFeature",
+      "EnergyGainItemFeature",
+      "GoldCostFeature",
+      "ItemImpactTypeItemFeature",
+      "ClearOffsetedComboActionFeature",
+      "ClearActiveWeaponAction",
+      "HideInEquipUIFeature",
+      "IsNotUpgradableFeature"
+    ],
+    "expected": "武器"
+  },
+  {
+    "name": "R-Dash-SpawnResin",
+    "features": [
+      "MedallionItemFeature",
+      "SituationTriggerItemFeature",
+      "LootOnDropFeature"
+    ],
+    "expected": "徽章"
+  }
+]

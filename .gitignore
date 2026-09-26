@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/__pycache__/
+**/.build-deps/
+**/.build/
+**/dist/
+**/validation/
+release/
+.local/
+*.log
+ArtExports/
+userdata/
+GameAssembly.dll
+UnityPlayer.dll
+Assembly-CSharp.dll
+global-metadata.dat

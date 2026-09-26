@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>波斯王子 · 美术资源库</title>
+<style>
+:root{color-scheme:dark;--bg:#161918;--panel:#222724;--line:#39443b;--ink:#edf1e9;--muted:#aebcae;--accent:#e9bd76}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Microsoft YaHei",system-ui,sans-serif}
+header,main,footer{max-width:1540px;margin:auto;padding:28px 40px}header{padding-bottom:14px}.eyebrow{color:var(--accent);letter-spacing:3px;font-size:12px}h1{font-size:34px;letter-spacing:1px;margin:8px 0}p{color:var(--muted);margin:8px 0}a{color:var(--accent)}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:22px}input,select,button{font:inherit;border:1px solid #4c574c;border-radius:6px;background:var(--panel);color:var(--ink);padding:10px 13px}input{flex:1;min-width:230px}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}input:focus,select:focus,button:focus{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}.card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}.picture{display:flex;height:205px;padding:18px;align-items:center;justify-content:center;background-color:#363c36;background-image:linear-gradient(45deg,#424a4220 25%,transparent 25%),linear-gradient(-45deg,#424a4240 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#424a4220 75%),linear-gradient(-45deg,transparent 75%,#424a4240 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}.picture img{max-width:100%;max-height:100%;object-fit:contain;image-rendering:auto}.light .picture{background-color:#e3e7df}.info{padding:13px}.name{font-size:14px;font-weight:600;overflow-wrap:anywhere}.meta{color:var(--muted);font-size:12px;margin-top:6px}.source{font-size:11px;color:#95a592;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:5px}.nav{display:flex;align-items:center;justify-content:center;gap:20px;margin:28px 0}.count{color:var(--accent);font-size:13px}.empty{padding:60px;text-align:center;color:var(--muted)}footer{font-size:12px;padding-top:0}.warn{color:#ffc685}
+@media(max-width:650px){header,main,footer{padding-left:18px;padding-right:18px}h1{font-size:27px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.picture{height:160px;padding:10px}select{max-width:100%}}
+.nav{flex-wrap:wrap;gap:12px}.nav form,.nav label{display:flex;align-items:center;gap:8px;margin:0}.nav input{flex:none;min-width:0;width:84px;text-align:center;padding:10px 6px}.nav .page-size{margin-left:12px;padding-left:20px;border-left:1px solid var(--line)}.nav--top{position:sticky;top:0;z-index:5;background:var(--bg);margin:0 0 22px;padding:12px 0;border-bottom:1px solid var(--line);box-shadow:0 8px 14px #0002}.nav [data-role="total"]{white-space:nowrap;font-variant-numeric:tabular-nums}.nav button{white-space:nowrap}#gallery-start{scroll-margin-top:8px}
+@media(max-width:650px){.nav{gap:8px}.nav input{width:68px}.nav button{padding:9px 11px}.nav .page-size{flex-basis:100%;justify-content:center;border-left:0;margin:0;padding:0}.nav--top{padding:10px 0}}
+.categories{margin:0 0 20px}.category-heading{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:12px}.category-heading strong{font-size:16px}.category-heading span{font-size:12px;color:var(--muted)}.category-tabs{display:flex;flex-wrap:wrap;gap:8px}.category-tabs button{padding:8px 13px;font-size:13px;border-radius:18px}.category-tabs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#171918}.category-detail{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:13px;color:var(--muted)}.category-detail label{display:flex;align-items:center;gap:8px}.category-detail select{font-size:13px;padding:7px 10px;max-width:100%}.category-tag{display:inline-block;margin-top:7px;padding:2px 7px;border:1px solid #667658;border-radius:4px;color:#cad8b6;font-size:11px;cursor:help}.category-tag.inferred{border-style:dashed;color:#b8c5ac}.category-tag.unknown{border-color:#736755;color:#ccb48c}.toolbar #bundle{max-width:480px}.toolbar #type{max-width:190px}
+.header-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.language-switch{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:9px}.language-switch button{border-color:transparent;background:transparent;padding:6px 12px;font-size:13px}.language-switch button[aria-pressed="true"]{background:var(--accent);color:#171918}.toolbar #type{max-width:230px}
+</style></head><body>
+<header><div class="eyebrow">THE ROGUE PRINCE OF PERSIA</div><div class="header-row"><h1 data-i18n="heading">美术资源库</h1><div class="language-switch" role="group" aria-label="语言 / Language"><button type="button" data-language="zh" lang="zh-CN" aria-label="切换到中文" aria-pressed="true">中文</button><button type="button" data-language="en" lang="en" aria-label="Switch to English" aria-pressed="false">English</button></div></div><p id="summary"></p><p data-i18n="intro">点击图片打开原尺寸 PNG。图标 / 精灵是从图集中提取的单张图片；原始贴图包含整张图集、材质纹理和特效素材。</p><p id="status"></p></header>
+<main><div id="gallery-start"></div>
+<nav class="nav nav--top" id="pagination-top" aria-label="上方翻页" data-i18n-aria="topPagination">
+<button type="button" data-action="previous" data-i18n="previous">上一页</button>
+<form data-role="jump" novalidate><label><span data-i18n="page">第</span> <input name="page" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="上方跳转页码" data-i18n-aria="topPage"></label><span data-role="total" aria-live="polite"></span><button type="submit" data-i18n="jump">跳转</button></form>
+<button type="button" data-action="next" data-i18n="next">下一页</button>
+<form class="page-size" data-role="size" novalidate><label><span data-i18n="perPage">每页</span> <input name="size" type="number" min="1" max="1000" step="1" value="96" inputmode="numeric" aria-label="上方每页图片数量" data-i18n-aria="topSize" title="每页可显示 1–1000 张图片" data-i18n-title="sizeHint"> <span data-i18n="imagesUnit">张</span></label><button type="submit" data-i18n="apply">设置</button></form>
+</nav>
+<section class="categories" aria-label="图片内容分类" data-i18n-aria="imageCategories">
+<div class="category-heading"><strong data-i18n="browseHeading">按内容找图片</strong><span data-i18n="browseHelp">根据游戏图集、原始路径和命名自动归类；悬停图片标签可查看依据。</span></div>
+<div class="category-tabs" id="category-tabs" role="group" aria-label="内容分类" data-i18n-aria="categories"></div>
+<div class="category-detail"><label><span data-i18n="subcategory">细分</span> <select id="subcategory" aria-label="分类细分" data-i18n-aria="subcategory"><option value="">全部细分</option></select></label><span id="category-note"></span></div>
+</section>
+<div class="toolbar"><input id="search" type="search" placeholder="搜索资源名称或来源包…" data-i18n-placeholder="searchPlaceholder" aria-label="搜索资源" data-i18n-aria="search">
+<select id="type" aria-label="资源类型" data-i18n-aria="assetType"><option value="" data-i18n="allImages">全部图片</option><option value="Sprite" data-i18n="Sprite">图标 / 精灵</option><option value="Texture2D" data-i18n="Texture2D">原始贴图</option><option value="Texture2DArray" data-i18n="Texture2DArray">纹理数组切片</option></select>
+<select id="bundle" aria-label="来源包" data-i18n-aria="sourceBundle"><option value="" data-i18n="allBundles">全部来源包</option></select><button id="background">切换浅色底</button><span class="count" id="count"></span></div>
+<div id="grid" class="grid"></div>
+<nav class="nav" id="pagination-bottom" aria-label="下方翻页" data-i18n-aria="bottomPagination">
+<button type="button" data-action="previous" data-i18n="previous">上一页</button>
+<form data-role="jump" novalidate><label><span data-i18n="page">第</span> <input name="page" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="下方跳转页码" data-i18n-aria="bottomPage"></label><span data-role="total" aria-live="polite"></span><button type="submit" data-i18n="jump">跳转</button></form>
+<button type="button" data-action="next" data-i18n="next">下一页</button>
+<form class="page-size" data-role="size" novalidate><label><span data-i18n="perPage">每页</span> <input name="size" type="number" min="1" max="1000" step="1" value="96" inputmode="numeric" aria-label="下方每页图片数量" data-i18n-aria="bottomSize" title="每页可显示 1–1000 张图片" data-i18n-title="sizeHint"> <span data-i18n="imagesUnit">张</span></label><button type="submit" data-i18n="apply">设置</button></form>
+</nav></main>
+<footer><a href="report.json" target="_blank" rel="noopener" data-i18n="exportReport">导出报告</a> · <a href="manifest.json" target="_blank" rel="noopener" data-i18n="assetIndex">完整资源索引</a> · <a href="classification-report.json" target="_blank" rel="noopener" data-i18n="classificationReport">分类统计与读取记录</a> · <a href="errors.json" target="_blank" rel="noopener" data-i18n="failureList">失败清单</a><p data-i18n="footerNote">本地离线浏览。PNG 保留原始分辨率和解码后的透明通道；预览使用缩略图。提取的纹理不包含游戏内灯光、材质着色与特效合成。</p></footer>
+<footer aria-label="Tool credits / 工具署名"><strong>工具 / Tool © 2026 BrickZhou/青春啊砖在he边看月亮</strong><p><a href="https://space.bilibili.com/517390275" target="_blank" rel="noopener noreferrer">Bilibili / B站</a> · <a href="https://www.youtube.com/@Brickzhou" target="_blank" rel="noopener noreferrer">YouTube / Brickzhou</a> · <a href="TOOL-LICENSE.txt">GPLv3</a> · <a href="TOOL-COPYRIGHT.md">Copyright / 版权说明</a></p><p>游戏美术资源归原权利人所有。Game artwork remains the property of its respective rights holders.</p></footer>
+<script id="data" type="application/json">__GALLERY_DATA__</script><script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent), $=id=>document.getElementById(id);
+const pagers=[$('pagination-top'),$('pagination-bottom')], sizePreference='rogue-art-page-size', languagePreference='rogue-art-language';
+let current=0, size=96, filtered=data.records, selectedCategory='', language='zh';
+const contentCategories=data.report.classification?.categories||[], categoryLabels=Object.fromEntries(contentCategories.map(c=>[c.id,c.label]));
+const categoryButtons=new Map();
+// Stable IDs and original subcategory values keep filters intact when the UI language changes.
+const messages={
+ pageTitle:['波斯王子 · 美术资源库','The Rogue Prince of Persia · Art Library'],
+ heading:['美术资源库','Art Library'],
+ intro:['点击图片打开原尺寸 PNG。图标 / 精灵是从图集中提取的单张图片；原始贴图包含整张图集、材质纹理和特效素材。','Click an image to open the full-resolution PNG. Icons / sprites are individual images extracted from atlases; original textures include entire atlases, material textures, and visual effects.'],
+ summary:['{images} 张图片 · {sources} 个资源文件 · {date}','{images} images · {sources} resource files · {date}'],
+ exportSuccess:['本次导出未报告失败。','No failures were reported during this export.'],
+ exportFailure:['有 {count} 项未能导出，详情见底部失败清单。','Export failures: {count}. See the failure list at the bottom for details.'],
+ previous:['上一页','Previous'], next:['下一页','Next'], page:['第','Page'], jump:['跳转','Go'],
+ perPage:['每页','Per page'], imagesUnit:['张','images'], apply:['设置','Apply'],
+ pageTotal:['/ {pages} 页','/ {pages} pages'], imageCount:['{count} 张','{count} images'],
+ sizeHint:['每页可显示 1–1000 张图片','Show 1–1000 images per page'],
+ topPagination:['上方翻页','Top pagination'], bottomPagination:['下方翻页','Bottom pagination'],
+ topPage:['上方跳转页码','Page number (top)'], bottomPage:['下方跳转页码','Page number (bottom)'],
+ topSize:['上方每页图片数量','Images per page (top)'], bottomSize:['下方每页图片数量','Images per page (bottom)'],
+ imageCategories:['图片内容分类','Image content categories'], categories:['内容分类','Content categories'],
+ browseHeading:['按内容找图片','Browse by content'],
+ browseHelp:['根据游戏图集、原始路径和命名自动归类；悬停图片标签可查看依据。','Automatically categorized using game atlases, original paths, and names. Hover over a category tag to see the evidence.'],
+ all:['全部','All'], subcategory:['细分','Subcategory'], allSubcategories:['全部细分','All subcategories'],
+ unknownNote:['这些资源暂时缺少明确线索，保留在这里供人工确认。','These assets lack clear clues and are kept here for manual review.'],
+ selectedNote:['当前分类：{category}。可继续组合类型、来源包和关键词筛选。','Current category: {category}. Refine it with asset type, source bundle, and keywords.'],
+ categoryNote:['先选择内容分类，再按需要选择细分；数量随下方搜索和筛选更新。','Choose a content category, then a subcategory if needed. Counts reflect the search and filters below.'],
+ search:['搜索资源','Search assets'], searchPlaceholder:['搜索名称、分类或来源包…','Search names, categories, or bundles…'],
+ assetType:['资源类型','Asset type'], allImages:['全部图片','All images'],
+ Sprite:['图标 / 精灵','Icons / Sprites'], Texture2D:['原始贴图','Original textures'], Texture2DArray:['纹理数组切片','Texture array slices'],
+ sourceBundle:['来源包','Source bundle'], allBundles:['全部来源包','All source bundles'],
+ lightBackground:['切换浅色底','Light background'], darkBackground:['切换深色底','Dark background'],
+ openImage:['打开原尺寸 PNG','Open full-resolution PNG'],
+ inferred:[' · 推断',' · Inferred'], noEvidence:['尚无分类依据','No classification evidence yet'],
+ unknownReason:['尚未匹配到足够明确的图集、路径或命名线索。','No sufficiently clear atlas, path, or naming clues were found.'],
+ atlasPrefix:['图集：','Atlas: '], pathPrefix:['原始路径：','Original path: '],
+ empty:['没有找到匹配的图片，请尝试其他关键词。','No matching images. Try different keywords or filters.'],
+ exportReport:['导出报告','Export report'], assetIndex:['完整资源索引','Full asset index'],
+ classificationReport:['分类统计与读取记录','Category statistics and metadata log'], failureList:['失败清单','Failure list'],
+ footerNote:['本地离线浏览。PNG 保留原始分辨率和解码后的透明通道；预览使用缩略图。提取的纹理不包含游戏内灯光、材质着色与特效合成。','Browse locally and offline. PNGs retain the original resolution and decoded alpha channel; previews use thumbnails. Extracted textures do not include in-game lighting, material shading, or composited effects.']
+};
+const categoryEnglish={
+ weapons:'Weapons', characters:'Characters', medallions:'Medallions', challenges:'Challenges / Awakening',
+ talents:'Talents / Progression', enemies:'Enemies / Bosses', items:'Items / Loot', maps:'Maps',
+ story:'Story / Codex', environment:'Environment / Architecture', effects:'Effects', ui:'Interface',
+ controls:'Controls / Input Prompts', fonts:'Fonts / Logos', other:'Other / Unclassified'
+};
+const subcategoryEnglish={
+ '徽章图标':'Medallion icons',
+ '徽章包':'Medallion packs',
+ '徽章槽 / 配套界面':'Medallion slots / Related UI',
+ '天赋图标':'Talent icons',
+ '天赋树界面':'Talent tree UI',
+ '永久升级 / 解锁':'Permanent upgrades / Unlocks',
+ '觉醒词条':'Awakening modifiers',
+ '觉醒选择 / 难度界面':'Awakening selection / Difficulty UI',
+ '觉醒祭坛 / 场景物件':'Awakening altars / World objects',
+ '挑战宝箱 / 场景物件':'Challenge chests / World objects',
+ '皮肤图标':'Skin icons',
+ '皮肤商店 / 配套界面':'Skin shop / Related UI',
+ '人物关系图 / 头像':'Character relationships / Portraits',
+ '敌人图鉴立绘':'Enemy codex illustrations',
+ '敌人图鉴头像':'Enemy codex portraits',
+ '精英标记':'Elite markers',
+ '世界地图 / 路线':'World map / Routes',
+ '小地图标记':'Minimap markers',
+ '地图路线符号':'Map route symbols',
+ '剧情线索':'Story clues',
+ '图鉴界面':'Codex UI',
+ '消耗品 / 掉落图标':'Consumables / Loot icons',
+ '货币 / 资源':'Currency / Resources',
+ '状态图标':'Status icons',
+ 'HUD / 玩家状态栏':'HUD / Player status bars',
+ '通用边框 / 装饰':'Shared borders / Decorations',
+ '窗口 / 对话框':'Windows / Dialogs',
+ '制作组 / 标识':'Studio / Logos',
+ '锻造 / 收藏界面':'Forge / Collection UI',
+ '天赋祭坛 / 场景物件':'Talent altars / World objects',
+ '武器图标':'Weapon icons',
+ '副武器 / 工具图标':'Secondary weapon / Tool icons',
+ '人物立绘 / 表情':'Character illustrations / Expressions',
+ '键鼠 / 手柄按键':'Keyboard / Mouse / Controller buttons',
+ '教学图示':'Tutorial illustrations',
+ '世界地图 / 地区插图':'World map / Region illustrations',
+ '地图标记 / 路线':'Map markers / Routes',
+ '剧情线索 / 界面':'Story clues / UI',
+ '人物 / 皮肤贴图':'Character / Skin textures',
+ '敌人 / Boss 贴图':'Enemy / Boss textures',
+ '粒子 / 特效贴图':'Particle / Effect textures',
+ '武器贴图 / 特效':'Weapon textures / Effects',
+ '副武器 / 工具贴图':'Secondary weapon / Tool textures',
+ '关卡编辑 / 地块标记':'Level editing / Tile markers',
+ '场景物件 / 建筑':'World objects / Architecture',
+ '加载 / 过场界面':'Loading / Transition UI',
+ '预知 / 选项界面':'Foresight / Options UI',
+ '其他界面':'Other UI',
+ '通用界面组件':'Shared UI components',
+ '调试菜单':'Debug menus',
+ '系统 / 调试界面':'System / Debug UI',
+ '字体图集':'Font atlases',
+ '人物头像':'Character portraits',
+ '角色共用贴图':'Shared character textures',
+ '天赋树 / 天赋点':'Talent trees / Talent points',
+ '粒子 / 渐变 / 动画切片':'Particles / Gradients / Animation slices',
+ '字体 / 标识':'Fonts / Logos',
+ '其他界面图集':'Other UI atlases',
+ '场景图集 / 物件':'Environment atlases / Objects',
+ '武器相关贴图':'Weapon-related textures',
+ '人物相关贴图':'Character-related textures',
+ '场景相关贴图':'Environment-related textures',
+ '待确认':'Unclassified'
+};
+const reasonPrefixes={
+ '所属图集：':'Atlas: ', '原始资源路径：':'Original asset path: ', '资源命名线索：':'Asset name clue: ',
+ '场景图集线索：':'Environment atlas clue: ', '武器资源包：':'Weapon bundle: ',
+ '皮肤资源包：':'Skin bundle: ', '人物资源包：':'Character bundle: ', '场景资源包：':'Environment bundle: '
+};
+function t(key,values={}){
+ const text=messages[key]?.[language==='en'?1:0]??key;
+ return text.replace(/\{(\w+)\}/g,(match,name)=>values[name]??match);
+}
+function number(value){return value.toLocaleString(language==='en'?'en-US':'zh-CN');}
+function categoryName(id,code=language){
+ if(!id)return messages.all[code==='en'?1:0];
+ return code==='en'?(categoryEnglish[id]||categoryEnglish.other):(categoryLabels[id]||'其他 / 待确认');
+}
+function subcategoryName(name,code=language){
+ const key=name||'待确认';return code==='en'?(subcategoryEnglish[key]||key):key;
+}
+function categoryReason(reason){
+ if(!reason)return t('noEvidence');
+ if(language!=='en')return reason;
+ if(reason===messages.unknownReason[0])return t('unknownReason');
+ for(const [prefix,translated] of Object.entries(reasonPrefixes)){
+  if(reason.startsWith(prefix))return translated+reason.slice(prefix.length);
+ }
+ return reason;
+}
+function normalizedInteger(value,fallback,max){
+ const number=Number(value);
+ return String(value??'').trim()!==''&&Number.isFinite(number)?Math.min(max,Math.max(1,Math.trunc(number))):fallback;
+}
+function pageBounds(total,index,pageSize){
+ const pages=Math.ceil(total/pageSize), current=Math.max(0,Math.min(Math.trunc(index),Math.max(0,pages-1)));
+ return {pages,current,start:current*pageSize,end:Math.min(total,(current+1)*pageSize)};
+}
+try{size=normalizedInteger(localStorage.getItem(sizePreference),96,1000);}catch{}
+try{const saved=localStorage.getItem(languagePreference);if(saved==='zh'||saved==='en')language=saved;}catch{}
+if(data.report.error_count)$('status').className='warn';
+for(const source of [...new Set(data.records.map(r=>r.source))].sort()){
+ const option=document.createElement('option');option.value=source;option.textContent=source.split('/').pop();$('bundle').append(option);
+}
+for(const category of [{id:''},...contentCategories]){
+ const button=document.createElement('button');button.type='button';button.dataset.category=category.id;
+ button.onclick=()=>{selectedCategory=category.id;$('subcategory').value='';filter();};
+ categoryButtons.set(category.id,{button});$('category-tabs').append(button);
+}
+function selectRecords(records,{q='',type='',bundle='',category='',subcategory=''}={}){
+ const query=q.trim().toLowerCase();
+ return records.filter(r=>(!type||r.type===type)&&(!bundle||r.source===bundle)&&(!category||r.category===category)&&(!subcategory||r.subcategory===subcategory)&&
+  (!query||[r.name,r.source,categoryName(r.category,'zh'),categoryName(r.category,'en'),subcategoryName(r.subcategory,'zh'),subcategoryName(r.subcategory,'en'),...(r.atlases||[]),...(r.original_paths||[])].join(' ').toLowerCase().includes(query)));
+}
+function updateCategories(base){
+ const counts=new Map();for(const r of base){const key=r.category||'other';counts.set(key,(counts.get(key)||0)+1);}
+ for(const [key,{button}] of categoryButtons){
+  button.textContent=categoryName(key)+' · '+number(key?counts.get(key)||0:base.length);
+  button.setAttribute('aria-pressed',String(selectedCategory===key));
+ }
+ const previous=$('subcategory').value,subcounts=new Map();
+ for(const r of base){if(r.category===selectedCategory&&r.subcategory)subcounts.set(r.subcategory,(subcounts.get(r.subcategory)||0)+1);}
+ const all=document.createElement('option');all.value='';all.textContent=t('allSubcategories');$('subcategory').replaceChildren(all);
+ for(const [name,count] of [...subcounts].sort((a,b)=>a[0].localeCompare(b[0],'zh-CN'))){
+  const option=document.createElement('option');option.value=name;option.textContent=subcategoryName(name)+' · '+number(count);$('subcategory').append(option);
+ }
+ $('subcategory').disabled=!selectedCategory;$('subcategory').value=subcounts.has(previous)?previous:'';
+ $('category-note').textContent=selectedCategory==='other'?t('unknownNote'):selectedCategory?t('selectedNote',{category:categoryName(selectedCategory)}):t('categoryNote');
+}
+function url(path){return path.split('/').map(encodeURIComponent).join('/');}
+function render(){
+ const fragment=document.createDocumentFragment(),bounds=pageBounds(filtered.length,current,size);current=bounds.current;
+ for(const r of filtered.slice(bounds.start,bounds.end)){
+  const card=document.createElement('article');card.className='card';
+  const a=document.createElement('a');a.className='picture';a.href=url(r.file);a.target='_blank';a.rel='noopener';a.title=t('openImage');
+  const img=document.createElement('img');img.src=url(r.thumbnail);img.alt=r.name;img.loading='lazy';a.append(img);
+  const info=document.createElement('div');info.className='info';
+  const name=document.createElement('div');name.className='name';name.textContent=r.name;
+  const meta=document.createElement('div');meta.className='meta';meta.textContent=r.width+' × '+r.height+' · '+t(r.type);
+  const tag=document.createElement('span');tag.className='category-tag'+(r.category==='other'?' unknown':r.category_confidence==='high'?'':' inferred');
+  tag.textContent=categoryName(r.category)+' › '+subcategoryName(r.subcategory)+(r.category_confidence==='medium'?t('inferred'):'');
+  tag.title=[categoryReason(r.category_reason),...(r.atlases||[]).map(atlas=>t('atlasPrefix')+atlas),...(r.original_paths||[]).map(path=>t('pathPrefix')+path)].join('\n');
+  const source=document.createElement('div');source.className='source';source.textContent=r.source.split('/').pop();source.title=r.source;
+  info.append(name,meta,tag,source);card.append(a,info);fragment.append(card);
+ }
+ $('grid').replaceChildren(fragment);
+ if(!filtered.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=t('empty');$('grid').append(empty);}
+ $('count').textContent=t('imageCount',{count:number(filtered.length)});
+ for(const pager of pagers){
+  const jump=pager.querySelector('[data-role="jump"]');
+  jump.elements.page.value=bounds.pages?current+1:0;
+  jump.elements.page.max=Math.max(1,bounds.pages);
+  jump.elements.page.disabled=bounds.pages===0;
+  jump.querySelector('button').disabled=bounds.pages===0;
+  pager.querySelector('[data-role="total"]').textContent=t('pageTotal',{pages:number(bounds.pages)});
+  pager.querySelector('[data-role="size"]').elements.size.value=size;
+  pager.querySelector('[data-action="previous"]').disabled=current===0;
+  pager.querySelector('[data-action="next"]').disabled=current+1>=bounds.pages;
+ }
+}
+function filter(resetPage=true){
+ const base=selectRecords(data.records,{q:$('search').value,type:$('type').value,bundle:$('bundle').value});
+ updateCategories(base);filtered=selectRecords(base,{category:selectedCategory,subcategory:$('subcategory').value});
+ if(resetPage)current=0;render();
+}
+$('search').addEventListener('input',()=>filter());
+for(const id of ['type','bundle','subcategory'])$(id).addEventListener('change',()=>filter());
+function showPage(index){
+ current=pageBounds(filtered.length,index,size).current;render();
+ $('gallery-start').scrollIntoView({block:'start',behavior:'auto'});
+}
+for(const pager of pagers){
+ pager.querySelector('[data-action="previous"]').onclick=()=>showPage(current-1);
+ pager.querySelector('[data-action="next"]').onclick=()=>showPage(current+1);
+ const jump=pager.querySelector('[data-role="jump"]');
+ jump.addEventListener('submit',event=>{
+  event.preventDefault();
+  showPage(normalizedInteger(jump.elements.page.value,current+1,Math.max(1,Math.ceil(filtered.length/size)))-1);
+ });
+ const perPage=pager.querySelector('[data-role="size"]');
+ perPage.addEventListener('submit',event=>{
+  event.preventDefault();
+  const firstImage=current*size;
+  size=normalizedInteger(perPage.elements.size.value,size,1000);
+  try{localStorage.setItem(sizePreference,String(size));}catch{}
+  showPage(Math.floor(firstImage/size));
+ });
+}
+function updateBackgroundLabel(){$('background').textContent=t(document.body.classList.contains('light')?'darkBackground':'lightBackground');}
+function applyLanguage(){
+ document.documentElement.lang=language==='en'?'en':'zh-CN';document.title=t('pageTitle');
+ for(const [attribute,target] of [['data-i18n',null],['data-i18n-aria','aria-label'],['data-i18n-title','title'],['data-i18n-placeholder','placeholder']]){
+  for(const element of document.querySelectorAll('['+attribute+']')){
+   const value=t(element.getAttribute(attribute));if(target)element.setAttribute(target,value);else element.textContent=value;
+  }
+ }
+ for(const button of document.querySelectorAll('[data-language]'))button.setAttribute('aria-pressed',String(button.dataset.language===language));
+ $('summary').textContent=t('summary',{images:number(data.report.image_count),sources:number(data.report.source_count),date:data.report.created.slice(0,10)});
+ $('status').textContent=data.report.error_count?t('exportFailure',{count:number(data.report.error_count)}):t('exportSuccess');
+ updateBackgroundLabel();filter(false);
+}
+function setLanguage(code){
+ if((code!=='zh'&&code!=='en')||code===language)return;
+ language=code;try{localStorage.setItem(languagePreference,language);}catch{}
+ applyLanguage();
+}
+for(const button of document.querySelectorAll('[data-language]'))button.onclick=()=>setLanguage(button.dataset.language);
+$('background').onclick=()=>{document.body.classList.toggle('light');updateBackgroundLabel();};
+applyLanguage();
+</script></body></html>
