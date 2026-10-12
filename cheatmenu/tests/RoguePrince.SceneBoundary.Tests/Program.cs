@@ -1,0 +1,20 @@
+using System.Reflection;
+using MotherBase.ApplicationFlowManager;
+using RoguePrince.CheatMenu;
+var passed=0;var failed=0;
+void Check(string name,Action action){try{action();passed++;Console.WriteLine("PASS "+name);}catch(Exception e){failed++;Console.WriteLine("FAIL "+name+": "+e.GetBaseException().Message);}}
+void Eq<T>(T a,T b){if(!Equals(a,b))throw new Exception($"Expected {b}, got {a}");}
+(RunTools tool,ApplicationFlowService flow,ApplicationState start) Setup()
+{var flow=new ApplicationFlowService();var regular=new ApplicationState("regular");var start=new ApplicationState("start",true);flow.states[regular.guid]=regular;flow.states[start.guid]=start;flow.state=regular;SceneActions.flow=flow;RunTools.Available=true;return(new RunTools(),flow,start);}
+void MenuRequest(ApplicationFlowService flow,ApplicationState state)
+{var method=typeof(RunTools).GetMethod("MenuLoadRequested",BindingFlags.Instance|BindingFlags.NonPublic);if(method==null)throw new Exception("Menu load provenance missing");method.Invoke(RunTools.Current,new object[]{flow,state});}
+ApplicationState NativeLoad(ApplicationFlowService flow,ApplicationState state,ApplicationSignal signal)
+{var method=typeof(SceneEncounterLoadPatch).GetMethod("Prefix",BindingFlags.Static|BindingFlags.NonPublic);var args=new object[]{flow,state,signal};method.Invoke(null,args);return(ApplicationState)args[1];}
+Check("ordinary start-biome travel cannot consume next-new-run seed",()=>{var (tool,flow,start)=Setup();tool.Arm("42","0",false);flow.state=start;var p=new LevelGeneratorParameters{stateId=start.stateID,seed=123};tool.Prepare(p);Eq(p.seed,123);Eq(flow.seed,123);Eq(tool.SeedPending,true);});
+Check("menu start-biome travel remains excluded even after native reset",()=>{var(tool,flow,start)=Setup();tool.Arm("42","0",false);MenuRequest(flow,start);NativeLoad(flow,start,null);tool.ResetRun(flow);flow.state=start;var p=new LevelGeneratorParameters{stateId=start.stateID,seed=123};tool.Prepare(p);Eq(p.seed,123);Eq(tool.SeedPending,true);});
+Check("verified new-run reset plus native start consumes seed once",()=>{var(tool,flow,start)=Setup();tool.Arm("42","3",true);NativeLoad(flow,start,null);tool.ResetRun(flow);flow.state=start;var p=new LevelGeneratorParameters{stateId=start.stateID,seed=123};tool.Prepare(p);Eq(p.seed,42);Eq(flow.seed,42);Eq(tool.SeedPending,false);Eq(tool.Difficulty(RuntimeServiceLocator.progression,1),3);var other=new LevelGeneratorParameters{stateId=start.stateID,seed=99};tool.Prepare(other);Eq(other.seed,99);});
+Check("native SendSignal destination is redirected without GetNextState",()=>{var(tool,flow,_)=Setup();var a=new ApplicationState("a");var b=new ApplicationState("b");flow.states[a.guid]=a;flow.states[b.guid]=b;var sa=new ApplicationSignal(11);var sb=new ApplicationSignal(12);flow.exits[11]=a;flow.exits[12]=b;var choices=new[]{new LevelTravelActions.Entry{State=a,Signal=sa},new LevelTravelActions.Entry{State=b,Signal=sb}};tool.ArmEncounter(choices[1],choices);var actual=NativeLoad(flow,a,sa);Eq(actual.guid,"b");Eq(tool.EncounterPending,false);});
+Check("direct unrelated native load cancels reserved encounter",()=>{var(tool,flow,_)=Setup();var b=new ApplicationState("b");flow.states[b.guid]=b;var sb=new ApplicationSignal(12);flow.exits[12]=b;var choices=new[]{new LevelTravelActions.Entry{State=b,Signal=sb}};tool.ArmEncounter(choices[0],choices);var other=new ApplicationState("other");Eq(NativeLoad(flow,other,null),other);Eq(tool.EncounterPending,false);});
+Check("seed and awakening never target another manager or progression",()=>{var(tool,flow,start)=Setup();tool.Arm("42","3",true);NativeLoad(flow,start,null);tool.ResetRun(flow);flow.state=start;tool.Prepare(new(){stateId=start.stateID,seed=123});Eq(tool.Difficulty(new ItemProgressionManagementService{Pointer=(IntPtr)90},1),1);SceneActions.flow=new(){Pointer=(IntPtr)91,state=start};tool.Tick();Eq(tool.Active,false);});
+CameraTests.Run(Check);
+Console.WriteLine($"RESULT {passed} passed, {failed} failed");return failed==0?0:1;

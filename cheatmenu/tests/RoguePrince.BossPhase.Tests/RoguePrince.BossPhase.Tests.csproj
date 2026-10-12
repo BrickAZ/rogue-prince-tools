@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../src/RoguePrince.CheatMenu/BossPhaseActions.cs" Link="BossPhaseActions.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/BossPracticeActions.cs" Link="BossPracticeActions.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/BossPhasePolicy.cs" Link="BossPhasePolicy.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/TrainingPolicy.cs" Link="TrainingPolicy.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/MobCatalogPolicy.cs" Link="MobCatalogPolicy.cs" />
+ </ItemGroup>
+</Project>

@@ -10,7 +10,7 @@ Reference environment: Windows x64 / game v1.1.0 / Steam Build 24299434. This is
 1. **Find the game and back up saves.** Close the game, then use Steam → Manage → Browse local files to locate `The Rogue Prince of Persia.exe`. Copy `userdata/saves` to a backup location outside the game directory. If no save exists yet, run the game normally to create one, then close it and back it up.
 2. **Install the loader.** Follow the [BepInEx walkthrough](../prerequisites/README.en.md): extract the helper, run its CMD, find the new ZIP in the helper's own `Downloads` folder, then extract that original BepInEx archive. The helper ZIP itself is not the loader.
 3. **Initialize the loader.** Start the game, wait for initialization, reach the main menu and exit. Check for `BepInEx/interop/Assembly-CSharp.dll`; if missing, resolve the [loader issue](FAQ.en.md#loader) first.
-4. **Install the menu.** Download [02-CheatMenu-0.1.8.zip](https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/02-CheatMenu-0.1.8.zip) and merge its `BepInEx` folder into the game directory. Do not nest it inside another folder named after the ZIP.
+4. **Install the menu.** Download [02-CheatMenu-0.1.35.zip](https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/02-CheatMenu-0.1.35.zip) and merge its `BepInEx` folder into the game directory. Do not nest it inside another folder named after the ZIP.
 5. **Open the menu.** Enter a save and press **F9** to show / hide it. Select **设置/setting → 语言/language → English**. A laptop may require Fn + F9.
 
 Main file layout (other game files omitted):
@@ -35,7 +35,7 @@ Game directory/
 ### Success checks
 
 - Loader: interop files have been generated. Inspect `BepInEx/LogOutput.log` for initialization errors.
-- Plugin: the log contains `[RPCheat] plugin_loaded version=0.1.8`. This proves loading, not that every native action works.
+- Plugin: the log contains `[RPCheat] plugin_loaded version=0.1.35`. This proves loading, not that every native action works.
 - Interface: F9 displays the menu after entering a save. Some actions require the player and level to be ready.
 
 ### Before changing anything

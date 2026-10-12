@@ -132,5 +132,118 @@ try
     Check("backup refuses a save locked by another writer",()=>{using var locked=new FileStream(Path.Combine(source,"account","global.sav"),FileMode.Open,FileAccess.ReadWrite,FileShare.None);try{SaveBackup.Create(source,backups);throw new Exception("accepted locked save");}catch(IOException){}});
 }
 finally { if(Directory.Exists(temp)) Directory.Delete(temp,true); }
+
+foreach (var max in new[] {120f, 180f, 450f})
+    foreach (var mode in new[] {MobSpawnHealthMode.OneHp, MobSpawnHealthMode.NativeFull})
+        Check($"spawn health {max} {mode}", () => {
+            Eq(MobSpawnPolicy.TryResolveHealth(max, mode, out var hp), true);
+            Eq(hp, mode == MobSpawnHealthMode.OneHp ? 1f : max);
+        });
+foreach (var invalid in new[] {0f, -1f, .5f, float.NaN, float.PositiveInfinity, float.NegativeInfinity})
+    Check($"reject spawn maximum {invalid}", () => Eq(MobSpawnPolicy.TryResolveHealth(invalid, MobSpawnHealthMode.OneHp, out _), false));
+Check("reject unknown spawn health mode", () => Eq(MobSpawnPolicy.TryResolveHealth(120, (MobSpawnHealthMode)99, out _), false));
+Check("single flight retains click options and rejects stale completions", () => {
+    var gate = new MobSpawnRequestGate();
+    var options = new MobSpawnOptions(MobSpawnHealthMode.OneHp, false);
+    Eq(gate.TryBegin(7, options, out var first), true);
+    options = new(MobSpawnHealthMode.NativeFull, true);
+    Eq(gate.TryBegin(7, options, out _), false);
+    Eq(gate.Options, new MobSpawnOptions(MobSpawnHealthMode.OneHp, false));
+    Eq(gate.CanComplete(first, 8), false);
+    Eq(gate.CanComplete(first, 7), true);
+    gate.Invalidate();
+    Eq(gate.CanComplete(first, 7), false);
+    Eq(gate.TryBegin(8, options, out var second), true);
+    gate.Complete(first);
+    Eq(gate.CanComplete(second, 8), true);
+    gate.Complete(second);
+    Eq(gate.Busy, false);
+});
+foreach (var mode in new[] {MobSpawnHealthMode.OneHp, MobSpawnHealthMode.NativeFull})
+    foreach (var ai in new[] {true, false})
+        Check($"spawn options {mode} ai={ai}", () => {
+            var gate = new MobSpawnRequestGate();
+            Eq(gate.TryBegin(1, new(mode, ai), out var id), true);
+            Eq(gate.Options, new MobSpawnOptions(mode, ai));
+            Eq(gate.CanComplete(id, 1), true);
+        });
+
+
+// A native LevelRoomData read boxes a value copy. These fixtures deliberately use
+// distinct wrapper pointers; test the production identity predicate, not Unity.
+Check("same room read through distinct value boxes remains in scope", () => {
+    var first = RoomIdentityFixture.Room(101, 77, 210, -105);
+    var reread = RoomIdentityFixture.Room(202, 77, 210, -105);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(first, reread), true);
+});
+Check("same template in a different placed room cancels scope", () => {
+    var first = RoomIdentityFixture.Room(101, 77, 210, -105);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(first, RoomIdentityFixture.Room(202, 77, 240, -105)), false);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(first, RoomIdentityFixture.Room(203, 77, 210, -85)), false);
+});
+Check("replacement room template at same coordinates cancels scope", () =>
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(RoomIdentityFixture.Room(101,77,210,-105), RoomIdentityFixture.Room(202,88,210,-105)), false));
+Check("missing room on either side cancels scope", () => {
+    var room = RoomIdentityFixture.Room(101,77,210,-105);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(room,null), false);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(null,room), false);
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(null,null), false);
+});
+Check("uninitialized room with missing template cancels scope", () => {
+    var room = RoomIdentityFixture.Room(101,77,210,-105);
+    room.template = null;
+    Eq(RoguePrince.CheatMenu.MobRoomIdentity.Matches(room,room), false);
+});
+
+
+// Native spawn uses position.x + forward.x * SpawnOffset.x, y/z additive.
+// Literal fixtures describe +/-X-facing actors whose local right.x is zero.
+foreach (var row in new[] {
+    (facing:1f, target:13f, want:3f), (facing:-1f, target:13f, want:-3f),
+    (facing:1f, target:7f, want:-3f), (facing:-1f, target:7f, want:3f)
+})
+    Check($"native spawn target {row.target} with forward {row.facing} and right.x=0", () => {
+        var actor = new UnityEngine.Transform {
+            position = new(10,20,3), forward = new(row.facing,0,0), right = new(0,0,-row.facing)
+        };
+        Eq(RoguePrince.CheatMenu.MobSpawnPlacement.TryOffset(actor,new(row.target,22,4),out var offset),true);
+        Eq(offset.x,row.want); Eq(offset.y,2f); Eq(offset.z,1f);
+        Eq(actor.position.x,10f); Eq(actor.forward.x,row.facing);
+    });
+Check("native spawn preserves forward magnitude instead of replacing it with a sign", () => {
+    foreach(var facing in new[]{.5f,-.5f}) {
+        var actor = new UnityEngine.Transform { position=new(10,20,3), forward=new(facing,0,0), right=new(.8660254f,0,0) };
+        Eq(RoguePrince.CheatMenu.MobSpawnPlacement.TryOffset(actor,new(13,22,4),out var offset),true);
+        Eq(offset.x,facing>0 ? 6f : -6f);
+    }
+});
+Check("invalid or unusably small native forward never produces an offset", () => {
+    foreach(var facing in new[]{0f, .000001f, -.000001f, float.NaN, float.PositiveInfinity, float.NegativeInfinity}) {
+        var actor=new UnityEngine.Transform { position=new(10,20,3), forward=new(facing,0,0), right=new(1,0,0) };
+        Eq(RoguePrince.CheatMenu.MobSpawnPlacement.TryOffset(actor,new(13,22,4),out var offset),false);
+        Eq(offset.x,0f); Eq(offset.y,0f); Eq(offset.z,0f);
+    }
+});
+Check("nonfinite or overflowed spawn displacement is rejected", () => {
+    foreach(var target in new UnityEngine.Vector3[]{new(float.NaN,22,4),new(13,float.PositiveInfinity,4),new(13,22,float.NegativeInfinity),new(float.MaxValue,22,4)}) {
+        var actor=new UnityEngine.Transform { position=new(-float.MaxValue,20,3),forward=new(1,0,0),right=new(1,0,0) };
+        Eq(RoguePrince.CheatMenu.MobSpawnPlacement.TryOffset(actor,target,out _),false);
+    }
+});
+Check("missing native transform rejects spawn placement", () =>
+    Eq(RoguePrince.CheatMenu.MobSpawnPlacement.TryOffset(null,new(13,22,4),out _),false));
+
+LevelAffixTests.Run(Check);
+NextRescueTests.Run(Check);
+MobCatalogTests.Run(Check);
+UtilityTests.Run(Check);
+TrainingTests.Run(Check);
+CombatTests.Run(Check);
+CombatBoundaryTests.Run(Check);
+EffectBoundaryTests.Run(Check);
+LoadoutBoundaryTests.Run(Check);
+SceneTests.Run(Check);
+BossPhaseTests.Run(Check);
+RestartTests.Run(Check);
 Console.WriteLine($"RESULT {passed} passed, {failed} failed");
 return failed == 0 ? 0 : 1;

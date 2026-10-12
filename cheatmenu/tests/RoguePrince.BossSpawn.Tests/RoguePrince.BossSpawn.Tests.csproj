@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/Core/BossSpawnBootstrap.cs" Link="BossSpawnBootstrap.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/BossSpawnAssetGraph.cs" Link="BossSpawnAssetGraph.cs" /></ItemGroup>
+</Project>

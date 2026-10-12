@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../src/RoguePrince.CheatMenu/RunTools.cs" Link="NativeBoundary/RunTools.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/SceneCamera.cs" Link="NativeBoundary/SceneCamera.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/ScenePolicy.cs" Link="NativeBoundary/ScenePolicy.cs" />
+ </ItemGroup>
+</Project>

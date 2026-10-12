@@ -20,6 +20,13 @@ internal sealed class GameSession
     public SpeedBoostComponent Wind { get; private set; }
     public MetaProgressionManager Meta { get; private set; }
     public long Generation { get; private set; }
+    private bool loadoutRecoveryBlocked;
+    internal bool AbilityInventoryReserved;
+    internal bool InventoryRecoveryBlocked
+    {
+        get => loadoutRecoveryBlocked || AbilityInventoryReserved;
+        set => loadoutRecoveryBlocked = value;
+    }
     public bool Ready => Player != null && !Player.destroyed && Player.gameObject.activeInHierarchy && Health != null && Health.isAlive && !Health.onDieActionStarted;
     public string Status => Ready ? MenuText.Get("角色已就绪") : MenuText.Get("等待存活角色（请进入存档）");
     public IntPtr PlayerPointer => Player != null ? Player.Pointer : IntPtr.Zero;

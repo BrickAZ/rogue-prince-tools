@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../src/RoguePrince.CheatMenu/PlayerCheckpointActions.cs" Link="PlayerCheckpointActions.cs" Condition="Exists('../../src/RoguePrince.CheatMenu/PlayerCheckpointActions.cs')" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/TrainingPolicy.cs" Link="TrainingPolicy.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/MobCatalogPolicy.cs" Link="MobCatalogPolicy.cs" />
+ </ItemGroup>
+</Project>

@@ -1,0 +1,70 @@
+// Copyright (C) 2026 BrickZhou. SPDX-License-Identifier: GPL-3.0-only
+namespace RoguePrince.CheatMenu.Core;
+public static partial class MenuText
+{
+    private static void AddTrainingTranslations()
+    {
+        var additions=new Dictionary<string,string>
+        {
+            ["训练与书签"]="Training / bookmark",["自有怪物管理"]="Owned enemies",["截图与效果"]="Photo / effects",
+            ["恢复正常速度"]="Normal speed",["退出截图模式"]="Exit photo mode",["训练状态恢复"]="Restore training state",
+            ["速度倍率（切关、死亡或失焦时恢复）"]="Game speed (restored on travel, death or loss of focus)",
+            ["当前速度 {0:0.##} 倍 · 选中普通怪物：{1}"]="Speed {0:0.##}x · Selected ordinary enemy: {1}",
+            ["请在怪物页选择"]="Select on the Enemies page",["数量"]="Count",["间隔（秒）"]="Interval (s)",
+            ["AI：开启"]="AI: on",["AI：关闭"]="AI: off",["AI 开启"]="AI on",["AI 关闭"]="AI off",
+            ["开始普通怪物批量生成"]="Start ordinary enemy batch",["停止批量生成"]="Stop batch",
+            ["请输入有效数量与间隔"]="Enter a valid count and interval.",["批量生成"]="Batch spawn",
+            ["数量 1–10，间隔 0.6–10 秒；逐只确认，首次失败停止。"]="Count 1-10; interval 0.6-10 seconds. Confirm each spawn; stop at the first failure.",
+            ["同房间位置书签"]="Same-room bookmark",["位置书签"]="Position bookmark",["记录安全位置"]="Record safe position",["返回书签"]="Return to bookmark",
+            ["仅管理本菜单生成、当前房间仍存活的目标。"]="Only living enemies spawned by this menu in the current room appear here.",
+            ["切换目标 AI"]="Toggle target AI",["目标回满生命"]="Refill target HP",["再生成同类"]="Spawn another",["单独清理目标"]="Remove target",
+            ["目标 AI"]="Target AI",["目标回血"]="Refill target HP",["生成同类"]="Spawn same type",["清理目标"]="Remove target",
+            ["暂无存活的自有目标；先在怪物页或训练页生成。"]="No living owned targets. Spawn one on the Enemies or Training page.",
+            ["镜头缩放偏移（-5 至 5）"]="Zoom offset (-5 to 5)",["应用镜头偏移"]="Apply zoom offset",["启用截图模式"]="Enter photo mode",
+            ["截图模式"]="Photo mode",["镜头缩放"]="Camera zoom",["请输入有效镜头偏移"]="Enter a valid zoom offset.",
+            ["当前角色状态效果（只读）"]="Player status effects (read only)",["暂无活动效果或角色未就绪"]="No active effects, or the player is not ready.",
+            ["{0} · ID {1} · 层数 {2} · {3}"]="{0} · ID {1} · Stacks {2} · {3}",
+            ["#{0} {1} · {2:0.#}/{3:0.#} HP · {4}"]="#{0} {1} · {2:0.#}/{3:0.#} HP · {4}",
+            ["训练操作需要当前角色、房间与焦点就绪"]="Training requires the current player, room and window focus.",
+            ["速度倍率回读失败"]="Game speed readback failed.",["游戏速度"]="Game speed",["游戏速度：{0:0.##} 倍"]="Game speed: {0:0.##}x",
+            ["已恢复正常速度"]="Normal speed restored.",["速度恢复失败，请使用恢复正常速度"]="Speed restore failed. Use Normal speed.",
+            ["已有训练请求正在执行"]="A training request is already running.",["批量生成已开始：0 / {0}"]="Batch started: 0 / {0}",
+            ["批量已停止：已完成 {0} / {1}"]="Batch stopped: {0} / {1} completed",
+            ["批量已取消：角色、房间、场景或焦点变化"]="Batch cancelled: player, room, scene or focus changed.",
+            ["批量生成：{0} / {1}"]="Batch spawn: {0} / {1}",["批量在首次失败后停止："]="Batch stopped at the first failure: ",
+            ["书签需在安全平地记录"]="Record and return from safe, flat ground.",["已记录当前房间安全位置"]="Safe position recorded in this room.",
+            ["书签不属于当前房间"]="The bookmark does not belong to this room.",["已请求原生传送，等待位置回读"]="Native teleport requested; waiting for position readback.",
+            ["书签返回已中止：作用域变化，未向新场景写入旧坐标"]="Bookmark return stopped after scope change; old coordinates were not written to the new scene.",
+            ["已返回同房间书签"]="Returned to the same-room bookmark.",["书签位置回读失败，已请求恢复原位置"]="Bookmark position readback failed; restoring the starting position.",
+            ["书签原位置恢复未通过回读"]="Starting position restore did not pass readback.",["书签位置无效"]="Invalid bookmark position.",
+            ["书签位置靠近房间边界"]="Bookmark is too close to a room boundary.",["书签位置被地形阻挡"]="Terrain blocks the bookmark position.",
+            ["书签位置被对象阻挡"]="An object blocks the bookmark position.",["书签位置靠近门或交互对象"]="Bookmark is too close to a door or interaction.",
+            ["书签位置靠近陷阱"]="Bookmark is too close to a trap.",["未记录 / 已失效"]="Not recorded / expired",
+            ["训练状态恢复尚未完成"]="Training state restoration is incomplete.",
+            ["请先退出并恢复截图模式"]="Exit and restore the previous photo mode first.",["截图镜头确认补丁未就绪"]="Camera confirmation patch is unavailable.",
+            ["截图模式需要游戏就绪"]="Photo mode requires the game to be ready.",
+            ["无法唯一定位活动摄像机，未启用截图模式"]="Cannot uniquely identify the active camera; photo mode was not enabled.",
+            ["角色摄像机上下文未就绪"]="Player camera context is not ready.",["未找到独立游戏 HUD，未启用截图模式"]="No independent gameplay HUD found; photo mode was not enabled.",
+            ["截图请求已发送；关闭菜单后等待原生镜头确认"]="Photo request sent. Close the menu to let the native camera confirm it.",
+            ["截图模式未启用或作用域已改变"]="Photo mode is inactive or its scope has changed.",
+            ["镜头缩放偏移：{0:0.##}"]="Camera zoom offset: {0:0.##}",
+            ["截图模式已启用；关闭菜单后隐藏 HUD 与角标"]="Photo mode active. Close the menu for a view without HUD or the corner hint.",
+            ["截图模式已退出，HUD 与镜头请求已恢复"]="Photo mode exited; HUD and camera request restored.",
+            ["镜头缩放请求回读失败"]="Camera zoom request readback failed.",
+            ["截图恢复未完成，请重试退出截图模式"]="Photo restoration is incomplete; retry Exit photo mode.",
+            ["HUD 已恢复，等待原生镜头撤销确认"]="HUD restored; waiting for the native camera to confirm release.",
+            ["镜头撤销仍待原生确认；请关闭菜单后重试卸载"]="Camera release awaits native confirmation. Close the menu, then retry unloading.",
+            ["清理尚未完成，保留控制器以便重试"]="Cleanup is incomplete; retaining the controller for retry.",
+            ["目标操作暂不可用"]="Target operation is temporarily unavailable.",["目标已失效或不是普通训练怪物"]="Target expired or is not an ordinary training enemy.",
+            ["目标已死亡或未初始化"]="Target is dead or has not initialized.",["训练目标生命回读失败"]="Training target HP readback failed.",
+            ["训练目标已回满生命"]="Training target HP refilled.",["训练目标 AI 已开启"]="Training target AI enabled.",["训练目标 AI 已关闭"]="Training target AI disabled.",
+            ["生成尚在冷却，请稍后重试"]="Spawning is cooling down. Try again shortly.",["已请求清理选中目标"]="Selected target removal requested.",
+            ["速度范围为 0.25–2 倍"]="Speed must be between 0.25x and 2x.",["镜头缩放偏移范围为 -5–5"]="Zoom offset must be between -5 and 5.",
+            ["原生数值无效"]="Invalid native value.",["批量仅支持普通怪物：数量 1–10，间隔 0.6–10 秒"]="Batch supports ordinary enemies only: count 1-10, interval 0.6-10 seconds.",
+            ["批量请求状态无效"]="Invalid batch request state.",["批量请求尚未到时"]="The next batch request is not due yet.",["批量没有待确认请求"]="The batch has no request awaiting confirmation.",
+            ["书签作用域或坐标无效"]="Invalid bookmark scope or coordinates.",["无倒计时（原生值 {0}）"]="No countdown (native value {0})",
+            ["剩余 {0} 原生帧"]="{0} native frames remaining",["剩余 {0:0.##} 秒 / {1} 帧"]="{0:0.##} seconds / {1} frames remaining"
+        };
+        foreach(var pair in additions)English.TryAdd(pair.Key,pair.Value);
+    }
+}

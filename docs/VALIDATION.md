@@ -1,5 +1,28 @@
 # 发布验证 / Release validation
 
+## CheatMenu 0.1.35 — 2026-10-12
+
+Published DLL SHA-256: `F82C2D6A6434D317558721A4CB532AC36369A1EFEE492590AF04CE529388C8BD`.
+
+| 检查 / Check | 结果 / Result | 范围 / Scope |
+|---|---|---|
+| Release build | 0 warnings, 0 errors | Actual local BepInEx/interop references; production DLL unchanged for publication |
+| Offline regression | 1051 passed, 0 failed / 15 suites | Managed fixtures; not real-game acceptance |
+| Compiled-DLL lifecycle | 17 passed, 0 failed | Real managed DLL with native dependencies; no running game |
+| Compiled source | 97 PDB source documents verified | Frozen production source corresponds to the installed DLL |
+| Affix regression | Original 0/6; fixed 10/0 | Actual production drawing and InputLease methods linked to fault fixtures |
+| Installation | Version 0.1.35.0 and exact DLL hash verified | 32 old plugin files backed up; 17 other protected file hashes unchanged |
+| Publication portability | 228 BossTargets + 53 ToolLimits + 17 lifecycle checks passed | Harmony loaded from a separate Unicode path supplied via GameDir; lifecycle harness accepts game directory argument; no production code change |
+| Runtime | Pending | Affix rendering/Escape recovery, autonomous current-room Boss combat, later Boss phases, full fresh-PC setup |
+
+0.1.34的最新实机日志确认词缀页使用的Unity滚动接口抛 `Method unstripping failed`。0.1.35改用有原生实现的裁剪接口并补齐故障恢复，但发布时没有重新启动游戏，不能称为已通过实机验收。Boss保留当前房间战斗启动候选，不保证所有Boss/阶段可用。发布不是完整功能完成声明。
+
+The latest 0.1.34 runtime log confirms the affix scroll API throws `Method unstripping failed`. 0.1.35 replaces it with native clipping and drawing-failure recovery. The game was not relaunched for this release. Current-room Boss combat remains a candidate awaiting in-game confirmation; all Bosses/phases are not guaranteed. Publication is not a declaration of feature completeness.
+
+[Current release notes](releases/cheatmenu-v0.1.35.md) · [Build/reproduce](BUILD.md)
+
+## Historical v1.0.0-rc.1
+
 Date: **2026-09-26**. Components: CheatMenu **0.1.8**, Art Tool **1.1.1**.
 
 | Check / 检查 | Result / 结果 | Evidence scope / 范围 |

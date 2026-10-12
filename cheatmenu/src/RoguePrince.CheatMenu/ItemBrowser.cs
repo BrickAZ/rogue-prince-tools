@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 // Additional game linking permission: see GAME-LINKING-EXCEPTION.txt.
 
-using System.Text.RegularExpressions;
 using RoguePrince.CheatMenu.Core;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -56,17 +55,21 @@ internal sealed class ItemBrowser
     }
 
     private static string ReadName(ItemData item, UnityEngine.Localization.Locale locale)
+        => ReadLocalized(item.title, locale);
+
+    internal static LocalizedItemName ReadLabel(LocalizedString title, string raw)
+        => new(ReadLocalized(title, LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier("zh-CN"))),
+            ReadLocalized(title, LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier("en-US"))), raw);
+
+    private static string ReadLocalized(LocalizedString reference, UnityEngine.Localization.Locale locale)
+        => LocalizedTextSource.Read(reference, locale);
+
+    internal static LocalizedItemName ReadAffixLabel(ItemData data)
     {
-        if (locale == null || item.title == null) return null;
-        try
-        {
-            // Clone the reference: never change the shared ItemData or the game's selected locale.
-            var local = new LocalizedString(item.title.TableReference, item.title.TableEntryReference);
-            local.LocaleOverride = locale;
-            var title = local.GetLocalizedString();
-            return string.IsNullOrWhiteSpace(title) ? null : Regex.Replace(title, "<[^>]+>", "");
-        }
-        catch { return null; } // Exact asset name remains available if a table is not ready.
+        // The native weapon tooltip uses ItemData.GetDescription, not the absent affix title.
+        var description = data.GetDescription();
+        return new(ReadLocalized(description, LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier("zh-CN"))) ?? "词缀文本未加载",
+            ReadLocalized(description, LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier("en-US"))) ?? "Affix text unavailable", data.name);
     }
 
     private static string Classify(ItemData item)
@@ -94,6 +97,7 @@ internal sealed class ItemBrowser
 
     public string Spawn(Entry entry, int tier)
     {
+        if(game.InventoryRecoveryBlocked)throw new InvalidOperationException(MenuText.Get("配装恢复尚未完成"));
         game.RequireReady();
         if (entry == null || entry.Data == null) throw new InvalidOperationException(MenuText.Get("请先选择有效物品"));
         if (tier < 1 || tier > 100) throw new ArgumentOutOfRangeException(nameof(tier), MenuText.Get("菜单生成等级范围为 1–100；0 级不存在，无法使用（原版仅 1–5 级）"));
@@ -128,5 +132,41 @@ internal sealed class ItemBrowser
             catch { UObject.Destroy(spawned); throw; }
         }
         return MenuText.Format("已请求生成：{0}", entry.Name) + (entry.HasTier ? MenuText.Format("（等级 {0}）", actualTier) : "");
+    }
+
+    public string SpawnInstance(ItemInstanceData instance)
+    {
+        if(game.InventoryRecoveryBlocked)throw new InvalidOperationException(MenuText.Get("配装恢复尚未完成"));
+        game.RequireReady();
+        if (instance?.source == null) throw new InvalidOperationException(MenuText.Get("请先选择有效物品"));
+        var data = instance.source;
+        var drop = data.GetComponent<LootOnDropFeature>();
+        var prefab = drop?.lootPrefab;
+        if (prefab == null)
+        {
+            var prefabs = new Dictionary<IntPtr, GameObject>();
+            foreach (var generator in Resources.FindObjectsOfTypeAll<LootGenerator>())
+                if (generator?.baseItemPickupPrefab != null && generator.mainCharacterVariable?.CurrentValue?.Pointer == game.PlayerPointer)
+                    prefabs[generator.baseItemPickupPrefab.Pointer] = generator.baseItemPickupPrefab;
+            if (prefabs.Count == 1) prefab = prefabs.Values.First();
+        }
+        if (prefab == null)
+        {
+            var debug = UObject.FindObjectOfType<DebugService>();
+            if (debug?.mainCharacterVariable?.CurrentValue?.Pointer == game.PlayerPointer) prefab = debug.itemPrefab?.gameObject;
+        }
+        if (prefab == null) throw new InvalidOperationException(MenuText.Get("没有找到唯一的物品掉落预制体；请进入可游玩关卡后重试"));
+        var spawned = UObject.Instantiate(prefab, game.Player.transform.position + new Vector3(0.8f, 0.8f, 0), Quaternion.identity);
+        if (spawned == null) throw new InvalidOperationException(MenuText.Get("游戏没有创建掉落物"));
+        try
+        {
+            var pickup = spawned.GetComponent<PickupItemComponent>();
+            if (pickup == null) throw new InvalidOperationException(MenuText.Get("该物品使用特殊掉落物，当前备用生成路径不支持"));
+            // Native setter updates item data and OnItemChanged with the full instance.
+            pickup.ItemToPickup = instance;
+            if (pickup.ItemToPickup?.Pointer != instance.Pointer) throw new InvalidOperationException(MenuText.Get("武器实例回读失败"));
+        }
+        catch { UObject.Destroy(spawned); throw; }
+        return MenuText.Format("已生成自定义词缀武器：{0}", ReadLabel(data.title, data.name).Display);
     }
 }

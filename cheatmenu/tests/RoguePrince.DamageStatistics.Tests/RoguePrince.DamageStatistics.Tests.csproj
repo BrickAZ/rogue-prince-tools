@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../src/RoguePrince.CheatMenu/Core/*.cs" Link="Production/%(Filename)%(Extension)" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/DamageStatisticsSource.cs" Link="Production/DamageStatisticsSource.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/CombatDamageHooks.cs" Link="Production/CombatDamageHooks.cs" />
+ </ItemGroup>
+</Project>

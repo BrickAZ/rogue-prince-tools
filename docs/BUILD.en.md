@@ -20,6 +20,22 @@ Pure logic tests do not require the game:
 dotnet run --project .\cheatmenu\tests\RoguePrince.CheatMenu.Tests -c Release
 ```
 
+The full build entry runs 15 regression suites. BossTargets and ToolLimits require Harmony from your own BepInEx installation, passed through `-GameDirectory` or `ROGUE_GAME_DIR`. Fixtures do not start the game.
+
+Run the 17 managed lifecycle checks against an actual compiled DLL, without entering the game:
+
+```powershell
+dotnet run --project .\cheatmenu\tests\RoguePrince.CompiledLifecycle.Tests -c Release -- 'absolute-path\RoguePrince.CheatMenu.dll' 'D:\YourGame'
+```
+
+Package CheatMenu alone, without republishing the art tool:
+
+```powershell
+python scripts/package_cheatmenu.py --dll cheatmenu/src/RoguePrince.CheatMenu/bin/Release/net6.0/RoguePrince.CheatMenu.dll
+```
+
+Packaging requires a clean Git commit and writes the install ZIP, complete source ZIP for that commit and SHA256SUMS.txt to `release/cheatmenu-0.1.35`. The install ZIP contains the plugin, original documentation and licenses. Historical validation only applies to the DLL hash identified in the release notes.
+
 <a id="art-tool"></a>
 ## Art tool
 
@@ -40,7 +56,7 @@ Portable integration checks require resources from your own game, selected throu
 
 ## Packaging and validation record
 
-After both builds, run from the repository root:
+The following script retains the historical v1.0.0-rc.1 two-tool packaging entry. Use the independent command above for current CheatMenu releases:
 
 ```powershell
 python scripts/package.py

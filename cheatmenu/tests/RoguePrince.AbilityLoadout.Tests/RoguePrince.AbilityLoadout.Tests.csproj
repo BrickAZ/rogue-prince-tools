@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/AbilityLoadoutActions.cs" Link="AbilityLoadoutActions.cs" Condition="Exists('../../src/RoguePrince.CheatMenu/AbilityLoadoutActions.cs')" /></ItemGroup>
+ <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/AbilityEffectState.cs" Link="AbilityEffectState.cs" /></ItemGroup>
+</Project>

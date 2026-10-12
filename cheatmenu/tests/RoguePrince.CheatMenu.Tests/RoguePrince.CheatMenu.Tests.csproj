@@ -2,4 +2,11 @@
   <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
   <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/Core/*.cs" Link="Core/%(Filename)%(Extension)" /></ItemGroup>
   <ItemGroup><None Update="item-category-cases.json" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/MobRoomIdentity.cs" Link="NativeBoundary/MobRoomIdentity.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/MobSpawnPlacement.cs" Link="NativeBoundary/MobSpawnPlacement.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/WeaponAffixOwnership.cs" Link="NativeBoundary/WeaponAffixOwnership.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/CombatDamageHooks.cs" Link="NativeBoundary/CombatDamageHooks.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/DamageStatisticsSource.cs" Link="NativeBoundary/DamageStatisticsSource.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/EffectActions.cs" Link="NativeBoundary/EffectActions.cs" /></ItemGroup>
+  <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/LoadoutActions.cs" Link="NativeBoundary/LoadoutActions.cs" /></ItemGroup>
 </Project>

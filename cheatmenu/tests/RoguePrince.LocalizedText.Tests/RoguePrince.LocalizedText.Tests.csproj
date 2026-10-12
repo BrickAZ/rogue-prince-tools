@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ImplicitUsings>enable</ImplicitUsings></PropertyGroup>
+ <ItemGroup><Compile Include="../../src/RoguePrince.CheatMenu/LocalizedTextSource.cs" Link="LocalizedTextSource.cs" Condition="Exists('../../src/RoguePrince.CheatMenu/LocalizedTextSource.cs')" /></ItemGroup>
+</Project>
