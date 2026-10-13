@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../src/RoguePrince.CheatMenu/InputLease.cs" Link="Production/InputLease.cs" />
+  <Compile Include="../../src/RoguePrince.CheatMenu/MenuController.Input.cs" Link="Production/MenuController.Input.cs" Condition="Exists('../../src/RoguePrince.CheatMenu/MenuController.Input.cs')" />
+ </ItemGroup>
+</Project>

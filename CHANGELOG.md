@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-13 — CheatMenu 0.1.36 prerelease / 预发布
+
+- Preserve native EventSystems while capturing previously enabled input modules, removing a reproduced null-current path in the native pause UI.
+- Block native pause reentry only while CheatMenu is visible or owns input; wait for close keys/mouse/controller buttons to release before handoff.
+- Retain failed input cleanup for retry and refuse normal plugin unload until cleanup completes. Existing affix rendering and gameplay adapters remain unchanged.
+- 针对词缀编辑后遇到的Esc暂停失效，保留原生EventSystem并只接管输入模块；菜单持有输入期间拦截原生暂停回调，关闭按键松开后归还。
+- 归还失败保留记录重试，正常卸载前需完成清理；保留此前词缀绘制修正及其他玩法逻辑。
+- Build, 1071 offline checks and 17 compiled-DLL lifecycle checks passed; real-game pause/input/navigation acceptance remains pending. 构建与离线验证不代替实机验收。
+- [Release details / 详细说明](docs/releases/cheatmenu-v0.1.36.md).
+
 ## 2026-10-12 — CheatMenu 0.1.35 prerelease / 预发布
 
 - Published current CheatMenu source and install package, updating the previously public 0.1.8 snapshot.

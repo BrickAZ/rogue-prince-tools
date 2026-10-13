@@ -6,14 +6,14 @@ By **BrickZhou/青春啊砖在he边看月亮**
 
 [简体中文](README.md) · [Bilibili](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
 
-> **Windows x64 · CheatMenu 0.1.35 prerelease.** Current source and install package are included. The affix fix, current-room Boss combat and fresh installation on another PC await in-game acceptance. Back up saves first. [Validation scope](docs/VALIDATION.md)
+> **Windows x64 · CheatMenu 0.1.36 prerelease.** Current source and install package are included. The Escape pause/input fix, current-room Boss combat and fresh installation on another PC await in-game acceptance. Back up saves first. [Validation scope](docs/VALIDATION.md)
 
 ## Choose your download
 
 | What do you need? | Ready-to-use packages | Next step |
 |---|---|---|
-| First CheatMenu installation | [CheatMenu 0.1.35][cheat] + [BepInEx download helper][loader] | [Installation guide](docs/INSTALL.en.md#cheatmenu) |
-| Update CheatMenu with a compatible loader already installed | [CheatMenu 0.1.35][cheat] | [Update or disable](docs/INSTALL.en.md#update) |
+| First CheatMenu installation | [CheatMenu 0.1.36][cheat] + [BepInEx download helper][loader] | [Installation guide](docs/INSTALL.en.md#cheatmenu) |
+| Update CheatMenu with a compatible loader already installed | [CheatMenu 0.1.36][cheat] | [Update or disable](docs/INSTALL.en.md#update) |
 | Only export or browse artwork | [Art Tool 1.1.1][art] | [Art tool setup](docs/INSTALL.en.md#art-tool) |
 
 **The art tool needs neither BepInEx nor a separate Python installation.** Its export EXE and gallery CMD are two entry points for one tool. BepInEx is developed by a third-party team and loads CheatMenu.
@@ -33,7 +33,7 @@ Players should use the packages above. GitHub's **Code → Download ZIP** and th
 - Debug tools: combat/damage statistics, scene reports/overlays, frame observation, tool-use and effect controls.
 - Settings: Chinese/English, shortcuts, interface scale/position and author links.
 
-0.1.35 addresses the menu disappearing when opening affixes after obtaining a weapon, replacing unavailable scrolling APIs and recovering input after drawing failures. The affix page and Escape recovery still need in-game confirmation for this version. See the [CheatMenu guide](cheatmenu/README.md) for scope and limits.
+0.1.36 addresses native Escape pause failures encountered after affix editing: preserve EventSystems, capture only input modules and block native pause reentry while the menu owns input. Failed release remains available for retry. Actual pause display and keyboard/mouse/controller recovery await in-game confirmation. See the [CheatMenu guide](cheatmenu/README.md) for scope and limits.
 
 These are the current menu's feature entries; see the compatibility table for native-action verification status. Automatic backups only cover disk saves before selected actions and do not replace a full backup before use.
 
@@ -72,8 +72,8 @@ Components keep independent versions. This release updates CheatMenu; the art to
 
 | Component | Current version / environment | Verification status |
 |---|---|---|
-| CheatMenu release | cheatmenu-v0.1.35 | Prerelease; art tool retains its original package |
-| CheatMenu | 0.1.35 | Build, 1051 offline checks, 17 compiled-DLL lifecycle checks and local installation verified; in-game confirmation pending |
+| CheatMenu release | cheatmenu-v0.1.36 | Prerelease; art tool retains its original package |
+| CheatMenu | 0.1.36 | Build, 1071 offline checks, 17 compiled-DLL lifecycle checks and local installation verified; in-game confirmation pending |
 | Art tool | 1.1.1 | Portable export and sample-gallery browser checks passed |
 | BepInEx | 6.0.0-be.788+5b766a3, Unity.IL2CPP-win-x64 | Pinned official download and checksum verified |
 | Reference game environment | Windows x64, game v1.1.0, Steam Build 24299434 | Other platforms and game versions unverified |
@@ -92,8 +92,8 @@ Original code uses **GPL-3.0-only**. Commercial redistribution is allowed; compl
 
 CheatMenu includes a [limited game linking permission](cheatmenu/GAME-LINKING-EXCEPTION.txt). BepInEx and other dependencies retain their authors and licenses; see [third-party notices](THIRD-PARTY-NOTICES.md). The tool license does not cover the game or exported artwork. This project is not affiliated with or endorsed by Ubisoft or Evil Empire.
 
-[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/02-CheatMenu-0.1.35.zip
+[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.36/02-CheatMenu-0.1.36.zip
 [loader]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/01-BepInEx-Download-788.zip
 [art]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/03-ArtTool-1.1.1.zip
-[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/cheatmenu-v0.1.35
-[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/SHA256SUMS.txt
+[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/cheatmenu-v0.1.36
+[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.36/SHA256SUMS.txt

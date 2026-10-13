@@ -4,7 +4,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.1.35</Version>
+    <Version>0.1.36</Version>
     <Authors>BrickZhou/闈掓槬鍟婄爾鍦╤e杈圭湅鏈堜寒</Authors>
     <Copyright>Copyright (C) 2026 BrickZhou/闈掓槬鍟婄爾鍦╤e杈圭湅鏈堜寒</Copyright>
     <Deterministic>true</Deterministic>

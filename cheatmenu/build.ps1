@@ -41,5 +41,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'CheatMenu Boss summon bootstrap checks failed' }
     & $Dotnet run --project 'tests/RoguePrince.MenuRendering.Tests' -c Release --nologo
     if ($LASTEXITCODE -ne 0) { throw 'CheatMenu rendering and input recovery checks failed' }
+    & $Dotnet run --project 'tests/RoguePrince.InputLease.Tests' -c Release --nologo
+    if ($LASTEXITCODE -ne 0) { throw 'CheatMenu native pause input scope checks failed' }
 } finally { Pop-Location }
 

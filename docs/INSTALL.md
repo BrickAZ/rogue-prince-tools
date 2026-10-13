@@ -10,7 +10,7 @@
 1. **找到游戏目录并备份存档。** 关闭游戏，在 Steam → 管理 → 浏览本地文件找到含 `The Rogue Prince of Persia.exe` 的目录。把 `userdata/saves` 复制到游戏目录外的备份位置。若尚未产生存档，先正常运行游戏创建存档，再关闭游戏备份。
 2. **安装前置。** 按 [BepInEx 安装步骤](../prerequisites/README.md)下载助手、运行 CMD、找到助手旁 `Downloads` 内的新 ZIP，再解压这个 BepInEx 原包。助手 ZIP 本身不是加载器。
 3. **初始化前置。** 启动游戏，等待初始化，进入主菜单后退出。确认 `BepInEx/interop/Assembly-CSharp.dll` 已生成；未生成则先处理[加载器问题](FAQ.md#loader)。
-4. **安装菜单。** 下载 [02-CheatMenu-0.1.35.zip](https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/02-CheatMenu-0.1.35.zip)，将里面的 `BepInEx` 文件夹合并到游戏目录。不要把整个 ZIP 名称文件夹套在外面。
+4. **安装菜单。** 下载 [02-CheatMenu-0.1.36.zip](https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.36/02-CheatMenu-0.1.36.zip)，将里面的 `BepInEx` 文件夹合并到游戏目录。不要把整个 ZIP 名称文件夹套在外面。
 5. **进入游戏。** 进入存档，按 **F9** 打开 / 关闭菜单。点击 **设置/setting → 语言/language** 切换中文或 English。笔记本可能需要 Fn + F9。
 
 正确的主要文件位置如下（其他游戏文件省略）：
@@ -35,7 +35,7 @@
 ### 怎样判断成功
 
 - 前置层：已生成 interop 文件；可查看 `BepInEx/LogOutput.log` 中的初始化错误。
-- 插件层：日志出现 `[RPCheat] plugin_loaded version=0.1.35`，表示插件已加载，不等于全部玩法操作通过验证。
+- 插件层：日志出现 `[RPCheat] plugin_loaded version=0.1.36`，表示插件已加载，不等于全部玩法操作通过验证。
 - 界面层：进入存档后 F9 能显示菜单；部分功能需要角色和关卡状态就绪。
 
 ### 使用前须知

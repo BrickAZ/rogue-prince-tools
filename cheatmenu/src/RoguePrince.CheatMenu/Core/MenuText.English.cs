@@ -8,6 +8,9 @@ public static partial class MenuText
 {
     private static readonly Dictionary<string, string> English = new(StringComparer.Ordinal)
     {
+        ["输入保护尚未就绪"]="Input protection is not ready",
+        ["原生暂停输入保护未安装，请查看日志"]="Native pause input protection is not installed; check the log",
+        ["输入恢复尚未完成"]="Input restoration is still pending",
         ["词缀文本未加载"]="Affix text unavailable",
         ["在当前房间开战。请站在宽阔平地上；AI 开启后等待原生攻击就绪。"]="Fight in the current room. Stand on a wide, flat platform; with AI enabled, wait for a native attack to confirm readiness.",
         ["打开原生 Boss 场地"]="Open native boss arenas",

@@ -20,7 +20,7 @@
 dotnet run --project .\cheatmenu\tests\RoguePrince.CheatMenu.Tests -c Release
 ```
 
-完整构建入口运行15组回归。BossTargets 与 ToolLimits 两组需要自有 BepInEx 中的 Harmony，路径由 `-GameDirectory` 传递，也可用 `ROGUE_GAME_DIR` 指定。其余夹具不启动游戏。
+完整构建入口运行16组回归。BossTargets 与 ToolLimits 两组需要自有 BepInEx 中的 Harmony，路径由 `-GameDirectory` 传递，也可用 `ROGUE_GAME_DIR` 指定。其余夹具不启动游戏。
 
 实际编译 DLL 的17项托管生命周期检查（不进入游戏）：
 
@@ -34,7 +34,7 @@ dotnet run --project .\cheatmenu\tests\RoguePrince.CompiledLifecycle.Tests -c Re
 python scripts/package_cheatmenu.py --dll cheatmenu/src/RoguePrince.CheatMenu/bin/Release/net6.0/RoguePrince.CheatMenu.dll
 ```
 
-打包需在干净的Git提交上执行，输出安装包、该提交的完整源码ZIP和SHA256SUMS.txt到 `release/cheatmenu-0.1.35`。安装包仅含插件、自有说明和许可证。历史验证结果只对应发布说明记录的DLL哈希。
+打包需在干净的Git提交上执行，输出安装包、该提交的完整源码ZIP和SHA256SUMS.txt到 `release/cheatmenu-0.1.36`。安装包仅含插件、自有说明和许可证。历史验证结果只对应发布说明记录的DLL哈希。
 
 <a id="art-tool"></a>
 ## 美术资源工具

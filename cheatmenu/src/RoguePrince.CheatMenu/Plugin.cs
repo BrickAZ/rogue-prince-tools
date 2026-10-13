@@ -16,7 +16,7 @@ namespace RoguePrince.CheatMenu;
 public sealed class Plugin : BasePlugin
 {
     public const string Id = "local.rogueprince.cheatmenu";
-    public const string Version = "0.1.35";
+    public const string Version = "0.1.36";
     internal static readonly RecentMenuLog RecentLog = new(64);
     internal static ConfigEntry<string> Language;
     internal static ManualLogSource MenuLog;
@@ -27,6 +27,7 @@ public sealed class Plugin : BasePlugin
     private Harmony harmony;
     public override void Load()
     {
+        MenuPauseInputPatch.Available=false;
         MenuLog = Log;
         Language = Config.Bind("Interface", "Language", "zh-CN", "语言/language: zh-CN = 中文, en-US = English. Applies to this menu only.");
         MenuText.SetLanguage(Language.Value);
@@ -87,6 +88,7 @@ public sealed class Plugin : BasePlugin
         PatchGroup("scene_run",()=>RunTools.Available=true,typeof(RunSeedGeneratePatch),typeof(RunDifficultyPatch),typeof(SceneRunResetPatch),typeof(SceneEncounterLoadPatch));
         PatchGroup("run_restart",()=>RunRestartActions.Available=true,typeof(RunRestartGenerationPatch));
         PatchGroup("frame_observation",()=>FrameObservationActions.Available=true,typeof(FrameObservationFixedPatch),typeof(FrameObservationUpdatePatch),typeof(FrameObservationLatePatch));
+        PatchGroup("menu_pause_input",()=>MenuPauseInputPatch.Available=true,typeof(MenuPauseInputPatch));
         AddComponent<MenuController>();
         LogEvent("plugin_loaded version=" + Version + " key=" + Hotkey.Value + " language=" + MenuText.LanguageCode);
     }
@@ -98,6 +100,7 @@ public sealed class Plugin : BasePlugin
         try{MenuController.Instance?.Shutdown(false);}
         catch(Exception e){Log.LogWarning("CheatMenu unload deferred: "+e);return false;}
         harmony?.UnpatchSelf();
+        MenuPauseInputPatch.Available=false;
         CombatActions.Current=null;RewardActions.Current=null;
         SceneActions.Current=null;RunTools.Current=null;SceneActions.TargetAvailable=SceneActions.SpawnAvailable=RunTools.Available=false;
         RunRestartActions.Current=null;RunRestartActions.Available=false;

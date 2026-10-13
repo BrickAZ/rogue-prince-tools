@@ -1,6 +1,30 @@
 # 发布验证 / Release validation
 
-## CheatMenu 0.1.35 — 2026-10-12
+## CheatMenu 0.1.36 — 2026-10-13
+
+Published DLL SHA-256: `F091EBB0CF33FBD2F18CC997BD6D1991F8B1C3D62160BCA9F1ABA37B37BC463E`.
+
+| 检查 / Check | 结果 / Result | 范围 / Scope |
+|---|---|---|
+| Production Release build | 0 warnings, 0 errors | Same production source/DLL as the verified local installation |
+| Offline regression | 1071 passed, 0 failed / 16 suites | Managed fixtures; not in-game acceptance |
+| Input ownership fixture | Old implementation 4 passed / 12 failed; fixed 20 / 0 | Actual production InputLease and scoped pause prefix, including failed cleanup retry and close-key handoff |
+| Affix drawing regression | 10 passed / 0 failed | Existing native clipping and drawing-failure recovery preserved |
+| Compiled-DLL lifecycle | 17 passed / 0 failed | Actual DLL with local native dependencies; no game launch |
+| Compiled source | 98 PDB source documents verified | Production source/DLL correspondence |
+| Native and compiled wiring | Verified | SetSelected null-current branch, EventSystem/module lifecycle, scoped pause prefix, retry and unload guards |
+| Local installation | Version/hash verified | 33 old plugin files backed up; 17 other protected hashes unchanged |
+| Runtime | Pending | Native pause display, keyboard/mouse/controller navigation and shared UI-action recovery; existing Boss combat limits remain |
+
+0.1.35日志记录原生PauseInputController→UIContainer.SetSelected空引用，第一处异常早于词缀应用。实际原生方法存在EventSystem.current为空的抛异常分支；旧菜单会禁用EventSystem，夹具复现此路径。0.1.36保留系统并按输入租约阻止原生暂停重入。旧堆栈没有指令地址，因此不能断言它是所有间歇故障的唯一原因；发布时未重新启动游戏验收。
+
+The 0.1.35 log records a native pause SetSelected null reference before the first affix application. The actual method has a null EventSystem.current throw path and the old menu disabled that system; the fixture reproduces this path. 0.1.36 preserves the system and scopes native pause suppression to menu input ownership. The historical stack lacks an instruction address, so a unique cause for every intermittent failure is not established. No new in-game acceptance is claimed.
+
+The first fixture build had CS0649 because its stub bootstrap did not initialize patch availability. That fixture-only issue was corrected; the targeted 20-check suite was rerun without warnings. The production build had zero warnings/errors and was not changed by that correction.
+
+[Current release notes](releases/cheatmenu-v0.1.36.md) · [Build/reproduce](BUILD.md)
+
+## Historical CheatMenu 0.1.35 — 2026-10-12
 
 Published DLL SHA-256: `F82C2D6A6434D317558721A4CB532AC36369A1EFEE492590AF04CE529388C8BD`.
 

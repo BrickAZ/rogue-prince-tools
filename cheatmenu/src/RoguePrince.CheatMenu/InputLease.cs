@@ -18,11 +18,13 @@ internal sealed class InputLease
     private CursorLockMode cursorLock;
     private bool cursorVisible;
     private bool cursorOwned;
-    private readonly List<EventSystem> disabledEventSystems = new();
+    private readonly List<BaseInputModule> disabledInputModules = new();
     private float nextUiScan;
+    internal bool Active => pauseOwned || cursorOwned || !ReferenceEquals(input,null) || disabledInputModules.Count>0;
 
     public void Acquire(GameSession game)
     {
+        var first=!Active;
         if (!pauseOwned && Time.timeScale > 0) { previousScale = Time.timeScale; Time.timeScale = 0; pauseOwned = true; }
         if (!cursorOwned) { cursorLock = Cursor.lockState; cursorVisible = Cursor.visible; cursorOwned = true; }
         Cursor.lockState = CursorLockMode.None;
@@ -32,11 +34,16 @@ internal sealed class InputLease
             nextUiScan = Time.realtimeSinceStartup + 0.5f;
             foreach (var system in UnityEngine.Object.FindObjectsOfType<EventSystem>())
                 if (system != null && system.enabled)
-                {
-                    disabledEventSystems.Add(system);
-                    system.enabled = false;
-                }
+                    foreach(var module in system.GetComponents<BaseInputModule>())
+                        if(module!=null && module.enabled)
+                        {
+                            if(!disabledInputModules.Contains(module))disabledInputModules.Add(module);
+                            module.enabled=false;
+                        }
         }
+        // Native Doozy UIContainer.SetSelected requires EventSystem.current even
+        // while a view hides. Capture input modules, never the EventSystem itself.
+        if(first)Plugin.LogEvent("menu_input_acquired eventSystem=preserved modules="+disabledInputModules.Count);
         var next = game.Player != null && !game.Player.destroyed ? game.Player.GetComponent<GamePlayerInput>() : null;
         if (input != null && (next == null || next.Pointer != input.Pointer)) ReleaseInput();
         if (next == null) return;
@@ -59,26 +66,35 @@ internal sealed class InputLease
         resumeListener = false;
     }
 
-    public void Release(bool quitting = false)
+    public bool Release(bool quitting = false)
     {
-        try { if (!quitting) ReleaseInput(); }
-        catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还角色输入：") + e.Message); }
-        finally
+        var hadScope=Active;
+        if(quitting)
         {
-            input = null;
-            resumeListener = false;
-            if (!quitting)
-                foreach (var system in disabledEventSystems)
-                    try { if (system != null) system.enabled = true; }
-                    catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还界面输入：") + e.Message); }
-            disabledEventSystems.Clear();
-            nextUiScan = 0;
-            try { if (pauseOwned && Time.timeScale == 0) Time.timeScale = previousScale; }
-            catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还暂停状态：") + e.Message); }
-            pauseOwned = false;
-            try { if (cursorOwned) { Cursor.lockState = cursorLock; Cursor.visible = cursorVisible; } }
-            catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还鼠标状态：") + e.Message); }
-            cursorOwned = false;
+            input=null;resumeListener=false;disabledInputModules.Clear();nextUiScan=0;
+            pauseOwned=cursorOwned=false;
+            if(hadScope)Plugin.LogEvent("menu_input_released quitting=true eventSystem=preserved");
+            return true;
         }
+        try { ReleaseInput(); }
+        catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还角色输入：") + e.Message); }
+        for(var i=disabledInputModules.Count-1;i>=0;i--)
+        {
+            try
+            {
+                var module=disabledInputModules[i];
+                if(module!=null)module.enabled=true;
+                disabledInputModules.RemoveAt(i);
+            }
+            catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还界面输入：") + e.Message); }
+        }
+        nextUiScan=0;
+        try { if (pauseOwned && Time.timeScale == 0) Time.timeScale = previousScale; pauseOwned=false; }
+        catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还暂停状态：") + e.Message); }
+        try { if (cursorOwned) { Cursor.lockState = cursorLock; Cursor.visible = cursorVisible; } cursorOwned=false; }
+        catch (Exception e) { Plugin.MenuLog.LogWarning(MenuText.Get("归还鼠标状态：") + e.Message); }
+        var complete=!Active;
+        if(hadScope&&complete)Plugin.LogEvent("menu_input_released quitting=false eventSystem=preserved");
+        return complete;
     }
 }

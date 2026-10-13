@@ -153,7 +153,8 @@ public sealed partial class MenuController : MonoBehaviour
             }
             wasReady = ready;
             if (visible) inputLease.Acquire(game);
-            else if (releaseInputAt > 0 && now >= releaseInputAt && !ConfirmStillHeld()) { inputLease.Release(); releaseInputAt = 0; }
+            else if ((releaseInputAt>0||inputLease.Active) && now>=releaseInputAt && (!Application.isFocused||!ConfirmStillHeld()))
+                releaseInputAt=inputLease.Release()?0:now+0.15f;
             if (now >= nextTick) { nextTick = now + 0.15f; actions.Tick(); }
             UpdateUtilities();
         }
@@ -239,6 +240,8 @@ public sealed partial class MenuController : MonoBehaviour
     private void Toggle()
     {
         if (!visible && (levels.Loading||scenes.Busy)) return;
+        if(!visible&&!MenuPauseInputPatch.Available)
+        {ReportError(MenuText.Get("输入保护尚未就绪"),new InvalidOperationException(MenuText.Get("原生暂停输入保护未安装，请查看日志")));return;}
         visible = !visible;
         focus = "";
         pressed = "";
@@ -597,14 +600,6 @@ public sealed partial class MenuController : MonoBehaviour
     }
 
     [HideFromIl2Cpp]
-    private static bool ConfirmStillHeld()
-    {
-        var pad=UnityEngine.InputSystem.Gamepad.current;
-        var keyboard=UnityEngine.InputSystem.Keyboard.current;
-        return (pad!=null&&pad.buttonSouth.isPressed)||(keyboard!=null&&keyboard.enterKey.isPressed);
-    }
-
-    [HideFromIl2Cpp]
     private void HandleMobNavigation()
     {
         if(!visible||collapsed||hotkeyCapture||actionKeyCapture!=null||!Application.isFocused)return;
@@ -745,7 +740,7 @@ public sealed partial class MenuController : MonoBehaviour
             try{mobs?.Dispose();}catch(Exception e){failures.Add(e);}
             try{actions?.Reset();}catch(Exception e){failures.Add(e);}
         }
-        try{inputLease.Release(quitting);}catch(Exception e){failures.Add(e);}
+        try{if(!inputLease.Release(quitting))failures.Add(new InvalidOperationException(MenuText.Get("输入恢复尚未完成")));}catch(Exception e){failures.Add(e);}
         if(!quitting && photo?.HasState==true)failures.Add(new InvalidOperationException(MenuText.Get("镜头撤销仍待原生确认；请关闭菜单后重试卸载")));
         if(!quitting && frameObservation?.RecoveryPending==true)failures.Add(new InvalidOperationException(MenuText.Get("时间控制仍待归还；请退出原生暂停后重试卸载")));
         if(failures.Count>0 && !quitting)throw new AggregateException(MenuText.Get("清理尚未完成，保留控制器以便重试"),failures);

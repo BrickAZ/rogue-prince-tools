@@ -27,7 +27,11 @@ namespace UnityEngine
  public class GameObject{public bool activeInHierarchy=true;}
  public class Object{public static UnityEngine.EventSystems.EventSystem[] Systems=Array.Empty<UnityEngine.EventSystems.EventSystem>();public static T[] FindObjectsOfType<T>()=>Systems.Cast<T>().ToArray();}
 }
-namespace UnityEngine.EventSystems{public class EventSystem{public bool enabled=true;}}
+namespace UnityEngine.EventSystems
+{
+ public class BaseInputModule{public bool enabled=true;}
+ public class EventSystem{public bool enabled=true;public BaseInputModule[] Modules={new()};public T[] GetComponents<T>()=>Modules.OfType<T>().ToArray();}
+}
 namespace MotherBase.ActionFramework
 {
  public class PlayerInput
@@ -41,7 +45,7 @@ namespace RoguePrince.CheatMenu
 {
  public class GameSession{public Player Player=new();}
  public class Player{public bool destroyed;public MotherBase.ActionFramework.PlayerInput Input=new();public T GetComponent<T>()where T:class=>Input as T;}
- public static class Plugin{public static Log MenuLog=new();}public class Log{public void LogWarning(string s){}}
+ public static class Plugin{public static Log MenuLog=new();public static void LogEvent(string s){}}public class Log{public void LogWarning(string s){}}
  public sealed partial class MenuController
  {
   private float scale=1,releaseInputAt;private GUIStyle textStyle=new();private string focus="",pressed="",actionKeyCapture;private bool visible,dragging,hotkeyCapture;private int tab;

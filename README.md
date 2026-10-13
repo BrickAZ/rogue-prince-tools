@@ -6,14 +6,14 @@
 
 [English](README.en.md) · [B站](https://space.bilibili.com/517390275) · [YouTube](https://www.youtube.com/@Brickzhou)
 
-> **Windows x64 · CheatMenu 0.1.35 预发布。** 发布包含当前源码与安装包。词缀页修正、当前房间 Boss 战斗及另一台电脑首次安装仍待实机验收；使用前备份存档。[验证范围](docs/VALIDATION.md)
+> **Windows x64 · CheatMenu 0.1.36 预发布。** 发布包含当前源码与安装包。Esc 暂停输入修正、当前房间 Boss 战斗及另一台电脑首次安装仍待实机验收；使用前备份存档。[验证范围](docs/VALIDATION.md)
 
 ## 选择下载
 
 | 我想做什么 | 下载成品包 | 下一步 |
 |---|---|---|
-| 第一次使用 CheatMenu | [CheatMenu 0.1.35][cheat] + [BepInEx 下载助手][loader] | [完整安装指南](docs/INSTALL.md#cheatmenu) |
-| 已有兼容前置，更新 CheatMenu | [CheatMenu 0.1.35][cheat] | [更新与停用](docs/INSTALL.md#update) |
+| 第一次使用 CheatMenu | [CheatMenu 0.1.36][cheat] + [BepInEx 下载助手][loader] | [完整安装指南](docs/INSTALL.md#cheatmenu) |
+| 已有兼容前置，更新 CheatMenu | [CheatMenu 0.1.36][cheat] | [更新与停用](docs/INSTALL.md#update) |
 | 只导出或浏览美术图片 | [美术资源工具 1.1.1][art] | [美术工具安装](docs/INSTALL.md#art-tool) |
 
 **美术工具不需要 BepInEx 或额外安装 Python。** 导出 EXE 与查看 CMD 是同一个工具的两个入口。BepInEx 由第三方团队开发，只供 CheatMenu 加载使用。
@@ -33,7 +33,7 @@
 - 调试工具：战斗与伤害统计、场景报告/叠加显示、帧观察、工具次数及效果控制。
 - 设置：中英文切换、快捷键、界面缩放与位置，以及作者主页链接。
 
-0.1.35 针对获得武器后打开词缀页导致菜单消失的问题，更换了不兼容的滚动接口并补齐绘制失败后的输入恢复。词缀页和 Esc 恢复仍待这版实机复核，完整功能与限制见 [CheatMenu 说明](cheatmenu/README.md)。
+0.1.36 针对编辑词缀后遇到的 Esc 原生暂停失效，保留原生 EventSystem，只接管输入模块，并在菜单持有输入时阻止暂停回调重入；归还失败会保留记录重试。真实暂停显示与键盘/鼠标/手柄恢复仍待实机复核，完整功能与限制见 [CheatMenu 说明](cheatmenu/README.md)。
 
 这些是当前菜单提供的功能入口；各原生操作的实机验证状态见下方兼容表。自动备份只覆盖指定操作前的磁盘存档，不能代替使用前的完整备份。
 
@@ -72,8 +72,8 @@
 
 | 项目 | 当前版本 / 环境 | 验证状态 |
 |---|---|---|
-| CheatMenu 发布 | cheatmenu-v0.1.35 | 预发布；美术工具继续使用原发行包 |
-| CheatMenu | 0.1.35 | 构建、1051项离线回归、17项编译DLL生命周期检查及本机安装核验通过；实机复核待完成 |
+| CheatMenu 发布 | cheatmenu-v0.1.36 | 预发布；美术工具继续使用原发行包 |
+| CheatMenu | 0.1.36 | 构建、1071项离线回归、17项编译DLL生命周期检查及本机安装核验通过；实机复核待完成 |
 | 美术资源工具 | 1.1.1 | 便携导出和样例图片库浏览器检查通过 |
 | BepInEx 前置 | 6.0.0-be.788+5b766a3，Unity.IL2CPP-win-x64 | 固定官方包的下载与校验通过 |
 | 参考游戏环境 | Windows x64，游戏 v1.1.0，Steam Build 24299434 | 其他平台和游戏版本未确认 |
@@ -92,8 +92,8 @@
 
 CheatMenu 附有[有限游戏链接许可](cheatmenu/GAME-LINKING-EXCEPTION.txt)。BepInEx 及其他依赖保留原作者与各自许可证，见[第三方声明](THIRD-PARTY-NOTICES.md)。工具许可不覆盖游戏及导出的美术资源。本项目与 Ubisoft、Evil Empire 无隶属或官方背书关系。
 
-[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/02-CheatMenu-0.1.35.zip
+[cheat]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.36/02-CheatMenu-0.1.36.zip
 [loader]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/01-BepInEx-Download-788.zip
 [art]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/v1.0.0-rc.1/03-ArtTool-1.1.1.zip
-[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/cheatmenu-v0.1.35
-[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.35/SHA256SUMS.txt
+[release]: https://github.com/BrickAZ/rogue-prince-tools/releases/tag/cheatmenu-v0.1.36
+[checksums]: https://github.com/BrickAZ/rogue-prince-tools/releases/download/cheatmenu-v0.1.36/SHA256SUMS.txt
